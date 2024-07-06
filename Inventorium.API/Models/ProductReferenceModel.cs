@@ -25,7 +25,7 @@ namespace Inventorium.API.Models
         public ProductCategoryModel ProductCategory { get; set; }
 
         // product reference has many items
-        public ICollection<ProductItemModel> ProductItems { get; } = 
+        public ICollection<ProductItemModel>? ProductItems { get; } = 
             new List<ProductItemModel>(); // collection of product items associated with this product reference
 
 

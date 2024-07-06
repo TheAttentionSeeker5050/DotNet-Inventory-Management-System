@@ -15,7 +15,7 @@ namespace Inventorium.API.Models
         [MaxLength(1500)]
         public string Description { get; set; }
 
-        public ICollection<ProductReferenceModel> ProductReferences { get; } = 
+        public ICollection<ProductReferenceModel>? ProductReferences { get; } = 
             new List<ProductReferenceModel>(); // collection of product references associated with this product category
     }
 }
