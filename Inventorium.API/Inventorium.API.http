@@ -1,6 +1,0 @@
-@Inventorium.API_HostAddress = http://localhost:5039
-
-GET {{Inventorium.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
