@@ -13,6 +13,8 @@ builder.Services.AddSqlite<InventoriumDbContext>("Data Source=Inventorium.db");
 
 var app = builder.Build();
 
+app.CreateDbIfNotExists();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

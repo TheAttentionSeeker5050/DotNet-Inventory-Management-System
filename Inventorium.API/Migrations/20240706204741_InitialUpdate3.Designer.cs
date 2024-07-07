@@ -3,6 +3,7 @@ using System;
 using Inventorium.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventorium.API.Migrations
 {
     [DbContext(typeof(InventoriumDbContext))]
-    partial class InventoriumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240706204741_InitialUpdate3")]
+    partial class InitialUpdate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");

@@ -12,11 +12,11 @@ namespace Inventorium.API.Models
 
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         // the relations
         // product item belongs to product reference
         // public int ProductReferenceId { get; set; }
-        public ProductReferenceModel ProductReference { get; set; }
+        public ProductReferenceModel? ProductReference { get; set; }
     }
 }
