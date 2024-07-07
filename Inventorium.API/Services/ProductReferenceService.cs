@@ -20,6 +20,8 @@ namespace Inventorium.API.Services
             return _context.ProductReferences
                 .AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
                                 // the entry Linq relations change in some other row or table
+                .Include(p => p.ProductItems)
+                .Include(p => p.ProductCategory)
                 .ToList();
         }
 

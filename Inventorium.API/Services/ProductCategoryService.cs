@@ -19,15 +19,16 @@ namespace Inventorium.API.Services
         public IEnumerable<ProductCategoryModel> GetProductCategories() // This can be null list if the product categories are empty
         {
             return _context.ProductCategories
-                .AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
-                // the entry Linq relations change in some other row or table
+                /*.AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
+                // the entry Linq relations change in some other row or table*/
+                .Include(c => c.ProductReferences)
                 .ToList();
         }
 
         public ProductCategoryModel? GetProductCategoryById(int id)
         {
             return _context.ProductCategories
-                .Include(p => p.ProductReferences)
+                .Include(c => c.ProductReferences)
                 .AsNoTracking()
                 .SingleOrDefault(p => p.Id == id);
         }
