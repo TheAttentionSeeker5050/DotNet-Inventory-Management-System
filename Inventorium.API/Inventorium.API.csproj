@@ -15,4 +15,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Inventorium.Dtos\Inventorium.Dtos.csproj"></ProjectReference>
+  </ItemGroup>
+
 </Project>

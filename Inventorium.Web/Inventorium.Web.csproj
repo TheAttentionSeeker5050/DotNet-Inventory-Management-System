@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Inventorium.Dtos\Inventorium.Dtos.csproj"></ProjectReference>
+  </ItemGroup>
+
 </Project>

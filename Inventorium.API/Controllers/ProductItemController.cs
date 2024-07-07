@@ -1,6 +1,8 @@
-﻿using Inventorium.API.Models;
-using Inventorium.API.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Inventorium.API.Extensions;
+using Inventorium.API.Models;
+using Inventorium.API.Repositories;
+using Inventorium.API.Repositories.Contracts;
+using Inventorium.Dtos.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventorium.API.Controllers
@@ -10,39 +12,77 @@ namespace Inventorium.API.Controllers
     public class ProductItemController : ControllerBase
     {
         // add readonly context
-        private readonly ProductItemService _productItemService;
+        private readonly IProductItemRepository _productItemRepository;
+        private readonly IProductReferenceRepository _productReferenceRepository;
 
         // constructor
-        public ProductItemController(ProductItemService productItemService)
+        public ProductItemController(IProductItemRepository productItemRepository, IProductReferenceRepository productReferenceRepository)
         {
-            _productItemService = productItemService;
+            _productItemRepository = productItemRepository;
+            _productReferenceRepository = productReferenceRepository;
         }
 
         // GET all the product items
         [HttpGet]
-        public ActionResult<List<ProductItemModel>> GetProductItems()
+        public async Task<ActionResult<IEnumerable<ProductItemDto>>> GetProductItems()
         {
-            var productItems = _productItemService.GetProductItems();
-
-            if (productItems == null | productItems.ToList().Count == 0)
+            try
             {
-                return NotFound();
-            }
+                var productItems = await _productItemRepository.GetProductItems();
+                var productReferences = await _productReferenceRepository.GetProductReferences();
 
-            return Ok(productItems);
+                if (productItems == null || productItems.ToList().Count() == 0 || productReferences == null || productReferences.ToList().Count() == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var productItemsDtos = productItems.ConvertToDto(productReferences);
+                    return Ok(productItemsDtos);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, "Could not get the product items from the database"
+                );
+            }
         }
 
         // GET single product item by ID with children tables
         [HttpGet("{id}")]
-        public ActionResult<ProductItemModel> GetProductItem(int id)
+        public async Task<ActionResult<ProductItemDto>> GetProductItem(int id)
         {
-            var productItem = _productItemService.GetProductItemById(id);
-            if (productItem == null)
+            try
             {
-                return NotFound();
-            }
+                var productItem = await _productItemRepository.GetProductItemById(id);
+                var productItemId = productItem.Id;
+                if (productItemId == null)
+                {
+                    return NotFound();
+                }
+                var productReference = await _productReferenceRepository.GetProductReferenceById(productItemId);
 
-            return Ok(productItem);
+                if (productItem == null || productReference == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var productItemDto = productItem.ConvertToDto(productReference);
+                    return Ok(productItemDto);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, "Could not get the product item data from the database"
+                );
+            }
         }
 
         // POST new product item
@@ -53,7 +93,7 @@ namespace Inventorium.API.Controllers
             {
                 var productReferenceId = newProductItem.ProductReference.Id;
                 // create product item
-                var createdProductItem = _productItemService.CreateProductItem(newProductItem, productReferenceId);
+                var createdProductItem = _productItemRepository.CreateProductItem(newProductItem, productReferenceId);
 
                 if (createdProductItem == null)
                 {
@@ -74,7 +114,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                _productItemService.DeleteProductItemById(id);
+                _productItemRepository.DeleteProductItemById(id);
                 return Ok();
 
             }
@@ -94,7 +134,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                _productItemService.UpdateProductItemById(id, newProductItem);
+                _productItemRepository.UpdateProductItemById(id, newProductItem);
                 return Ok();
 
             }

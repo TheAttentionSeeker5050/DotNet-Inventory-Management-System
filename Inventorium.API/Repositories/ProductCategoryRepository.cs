@@ -1,36 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Inventorium.API.Data;
 using Inventorium.API.Models;
+using Inventorium.API.Repositories.Contracts;
 
 
-namespace Inventorium.API.Services
+namespace Inventorium.API.Repositories
 {
-    public class ProductCategoryService
+    public class ProductCategoryRepository : IProductCategoryRepository
     {
         // add the readonly property context
         private readonly InventoriumDbContext _context;
 
         // the constructor 
-        public ProductCategoryService(InventoriumDbContext context)
+        public ProductCategoryRepository(InventoriumDbContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<ProductCategoryModel> GetProductCategories() // This can be null list if the product categories are empty
+        public async Task<IEnumerable<ProductCategoryModel>> GetProductCategories() // This can be null list if the product categories are empty
         {
-            return _context.ProductCategories
+            return await _context.ProductCategories.ToListAsync();
                 /*.AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
                 // the entry Linq relations change in some other row or table*/
-                .Include(c => c.ProductReferences)
-                .ToList();
+                /*.Include(c => c.ProductReferences)
+                .ToList();*/
         }
 
-        public ProductCategoryModel? GetProductCategoryById(int id)
+        public async Task<ProductCategoryModel> GetProductCategoryById(int id)
         {
-            return _context.ProductCategories
-                .Include(c => c.ProductReferences)
+            return await _context.ProductCategories
+                .FindAsync(id);
+                /*.Include(c => c.ProductReferences)
                 .AsNoTracking()
-                .SingleOrDefault(p => p.Id == id);
+                .SingleOrDefault(p => p.Id == id);*/
         }
 
         public ProductCategoryModel CreateProductCategory(ProductCategoryModel newProductCategory)

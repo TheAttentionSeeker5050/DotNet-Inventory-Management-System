@@ -1,5 +1,6 @@
 using Inventorium.API.Data;
-using Inventorium.API.Services;
+using Inventorium.API.Repositories;
+using Inventorium.API.Repositories.Contracts;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +17,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<InventoriumDbContext>("Data Source=Inventorium.db");
 
 // add dependency injection the services
-builder.Services.AddScoped<ProductCategoryService>();
-builder.Services.AddScoped<ProductReferenceService>();
-builder.Services.AddScoped<ProductItemService>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductReferenceRepository, ProductReferenceRepository>();
+builder.Services.AddScoped<IProductItemRepository, ProductItemRepository>();
 
 var app = builder.Build();
 

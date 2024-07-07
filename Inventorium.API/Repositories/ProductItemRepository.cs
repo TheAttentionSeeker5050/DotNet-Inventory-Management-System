@@ -1,35 +1,36 @@
 ﻿using Inventorium.API.Data;
 using Inventorium.API.Models;
+using Inventorium.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Inventorium.API.Services
+namespace Inventorium.API.Repositories
 {
-    public class ProductItemService
+    public class ProductItemRepository : IProductItemRepository
     {
 
         // add the readonly property context
         private readonly InventoriumDbContext _context;
 
-        public ProductItemService(InventoriumDbContext context)
+        public ProductItemRepository(InventoriumDbContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<ProductItemModel> GetProductItems() // This can be null list if the product categories are empty
+        public async Task<IEnumerable<ProductItemModel>> GetProductItems() // This can be null list if the product categories are empty
         {
-            return _context.ProductItems
-                .AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
+            return await _context.ProductItems.ToListAsync();
+                /*.AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
                                 // the entry Linq relations change in some other row or table
                 .Include(p => p.ProductReference)
-                .ToList();
+                .ToList();*/
         }
 
-        public ProductItemModel? GetProductItemById(int id)
+        public async Task<ProductItemModel> GetProductItemById(int id)
         {
-            return _context.ProductItems
-                .Include(p => p.ProductReference)
+            return await _context.ProductItems.FindAsync(id);
+                /*.Include(p => p.ProductReference)
                 .AsNoTracking()
-                .SingleOrDefault(p => p.Id == id);
+                .SingleOrDefault(p => p.Id == id);*/
         }
 
         public ProductItemModel CreateProductItem(ProductItemModel newProductItem, int productReferenceId)

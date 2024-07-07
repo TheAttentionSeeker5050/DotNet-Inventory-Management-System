@@ -1,37 +1,38 @@
 ﻿using Inventorium.API.Data;
 using Inventorium.API.Models;
+using Inventorium.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Inventorium.API.Services
+namespace Inventorium.API.Repositories
 {
-    public class ProductReferenceService
+    public class ProductReferenceRepository : IProductReferenceRepository
     {
 
         // add the readonly property context
         private readonly InventoriumDbContext _context;
 
-        public ProductReferenceService(InventoriumDbContext context)
+        public ProductReferenceRepository(InventoriumDbContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<ProductReferenceModel> GetProductReferences() // This can be null list if the product categories are empty
+        public async Task<IEnumerable<ProductReferenceModel>> GetProductReferences() // This can be null list if the product categories are empty
         {
-            return _context.ProductReferences
-                .AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
+            return await _context.ProductReferences.ToListAsync();
+                /*.AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
                                 // the entry Linq relations change in some other row or table
                 .Include(p => p.ProductItems)
                 .Include(p => p.ProductCategory)
-                .ToList();
+                .ToList();*/
         }
 
-        public ProductReferenceModel? GetProductReferenceById(int id)
+        public async Task<ProductReferenceModel> GetProductReferenceById(int id)
         {
-            return _context.ProductReferences
-                .Include(p => p.ProductItems)
+            return await _context.ProductReferences.FindAsync(id);
+                /*.Include(p => p.ProductItems)
                 .Include(p => p.ProductCategory)
                 .AsNoTracking()
-                .SingleOrDefault(p => p.Id == id);
+                .SingleOrDefault(p => p.Id == id);*/
         }
 
         public ProductReferenceModel CreateProductReference(ProductReferenceModel newProductReference, int productCategoryId)

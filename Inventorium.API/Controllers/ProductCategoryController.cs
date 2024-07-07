@@ -1,11 +1,9 @@
-﻿using Inventorium.API.Data;
-using Inventorium.API.Models;
-using Inventorium.API.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Inventorium.API.Models;
+using Inventorium.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
+using Inventorium.API.Extensions;
+using Inventorium.Dtos.Dtos;
+using Inventorium.API.Repositories.Contracts;
 
 namespace Inventorium.API.Controllers
 {
@@ -14,39 +12,67 @@ namespace Inventorium.API.Controllers
     public class ProductCategoryController : ControllerBase
     {
         // add readonly context
-        private readonly ProductCategoryService _productCategoryService;
+        private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IProductReferenceRepository _productReferenceRepository;
 
         // constructor
-        public ProductCategoryController(ProductCategoryService productCategoryService)
+        public ProductCategoryController(IProductCategoryRepository productCategoryRepository, IProductReferenceRepository productReferenceRepository)
         {
-            _productCategoryService = productCategoryService;
+            _productCategoryRepository = productCategoryRepository;
+            _productReferenceRepository = productReferenceRepository;
         }
 
         // GET all the product categories
         [HttpGet]
-        public ActionResult<List<ProductCategoryModel>> GetProductCategories()
+        public async Task<ActionResult<IEnumerable<ProductCategoryDto>>> GetProductCategories()
         {
-            var productCategories = _productCategoryService.GetProductCategories();
-
-            if (productCategories == null | productCategories.ToList().Count == 0)
+            try
             {
-                return NotFound();
-            }
+                var productCategories = await _productCategoryRepository.GetProductCategories();
+                if (productCategories == null)
+                {
+                    return NotFound();
+                } else
+                {
+                    var productCategoriesDtos = productCategories.ConvertToDto();
+                    return Ok(productCategoriesDtos);
 
-            return Ok(productCategories);
+                }
+            } catch (Exception ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, "Could not get the product categories from the database"
+                );
+            }
         }
 
         // GET single product category by ID with children tables
         [HttpGet("{id}")]
-        public ActionResult<ProductCategoryModel> GetProductCategoryById(int id)
+        public async Task<ActionResult<ProductCategoryDto>> GetProductCategoryById(int id)
         {
-            var productCategory = _productCategoryService.GetProductCategoryById(id);
-            if (productCategory == null)
+            try
             {
-                return NotFound();
-            }
+                var productCategory = await _productCategoryRepository.GetProductCategoryById(id);
+                var productReferences = await _productReferenceRepository.GetProductReferences();
+                if (productCategory == null || productReferences == null || productReferences.ToList().Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var productCategoriesDto = productCategory.ConvertToDto(productReferences);
+                    return Ok(productCategoriesDto);
 
-            return Ok(productCategory);
+                }
+            }
+            catch (Exception ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, "Could not get the product category data from the database"
+                );
+            }
         }
 
         // POST new product category
@@ -56,7 +82,7 @@ namespace Inventorium.API.Controllers
             try
             {
                 // create product category
-                var createdProductCategory = _productCategoryService.CreateProductCategory(newProductCategory);
+                var createdProductCategory = _productCategoryRepository.CreateProductCategory(newProductCategory);
 
                 if (createdProductCategory == null)
                 {
@@ -77,7 +103,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                _productCategoryService.DeleteProductCategoryById(id);
+                _productCategoryRepository.DeleteProductCategoryById(id);
                 return Ok();
 
             } catch (InvalidOperationException ex)
@@ -96,7 +122,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                _productCategoryService.UpdateProductCategoryById(id, newProductCategory);
+                _productCategoryRepository.UpdateProductCategoryById(id, newProductCategory);
                 return Ok();
 
             } catch (InvalidOperationException ex)
