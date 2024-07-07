@@ -28,7 +28,7 @@ namespace Inventorium.API.Controllers
 
         // GET all the product references
         [HttpGet]
-        public async Task<ActionResult<List<ProductReferenceDto>>> GetProductReferences()
+        public async Task<ActionResult<IEnumerable<ProductReferenceDto>>> GetProductReferences()
         {
             try
             {
