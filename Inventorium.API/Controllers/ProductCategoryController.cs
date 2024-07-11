@@ -36,8 +36,8 @@ namespace Inventorium.API.Controllers
                 {
                     var productCategoriesDtos = productCategories.ConvertToDto();
                     return Ok(productCategoriesDtos);
-
                 }
+
             } catch (Exception ex)
             {
                 // If an exception occurs return the status code 500 with a error message

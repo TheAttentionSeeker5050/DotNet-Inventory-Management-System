@@ -16,7 +16,7 @@ namespace Inventorium.API.Models
 
         // the relations
         // product item belongs to product reference
-        // public int ProductReferenceId { get; set; }
+        public int ProductReferenceId { get; set; }
         public ProductReferenceModel? ProductReference { get; set; }
     }
 }

@@ -65,17 +65,19 @@ namespace Inventorium.API.Controllers
                 var productReference = await _productReferenceRepository.GetProductReferenceById(id);
                 if (productReference == null)
                 {
-                    return NotFound();
+                    return StatusCode(
+                        StatusCodes.Status404NotFound, "Product reference was not found"
+                    );
                 }
 
-                var productCategoryId = productReference.ProductCategory.Id;
-                if (productCategoryId == null)
+                if (productReference.ProductCategoryId == null)
                 {
-                    return BadRequest();
+                    throw new BadHttpRequestException("Could not get the product category Id");
+                    
                 }
 
-                var productCategory = await _productCategoryRepository.GetProductCategoryById(productCategoryId);
-                var productItems = await _productItemRepository.GetProductItems();
+                var productCategory = await _productCategoryRepository.GetProductCategoryById(productReference.ProductCategoryId);
+                var productItems = await _productItemRepository.GetProductItemsByProductReference(productReference.Id);
 
                 if (productItems.ToList().Count() == 0 || productCategory == null)
                 {
@@ -88,6 +90,13 @@ namespace Inventorium.API.Controllers
                     return Ok(productReferenceDto);
 
                 }
+            }
+            catch (BadHttpRequestException ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, ex.Message
+                );
             }
             catch (Exception ex)
             {

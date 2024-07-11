@@ -22,6 +22,8 @@ namespace Inventorium.API.Models
 
         // the relations
         // product reference belongs to category
+        public int ProductCategoryId { get; set; }
+
         public ProductCategoryModel? ProductCategory { get; set; }
 
         // product reference has many items

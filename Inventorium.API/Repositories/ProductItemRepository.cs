@@ -19,10 +19,13 @@ namespace Inventorium.API.Repositories
         public async Task<IEnumerable<ProductItemModel>> GetProductItems() // This can be null list if the product categories are empty
         {
             return await _context.ProductItems.ToListAsync();
-                /*.AsNoTracking() // This is to mark this query as read only to avoid any unwanted changes when 
-                                // the entry Linq relations change in some other row or table
-                .Include(p => p.ProductReference)
-                .ToList();*/
+                
+        }
+
+        public async Task<IEnumerable<ProductItemModel>> GetProductItemsByProductReference(int id) // This can be null list if the product categories are empty
+        {
+            return await _context.ProductItems.Where(productItem => productItem.ProductReferenceId == id).ToListAsync();
+
         }
 
         public async Task<ProductItemModel> GetProductItemById(int id)
