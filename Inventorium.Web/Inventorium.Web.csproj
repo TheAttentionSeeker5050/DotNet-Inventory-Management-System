@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Extensions\" />
     <Folder Include="wwwroot\javascript\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\media\" />

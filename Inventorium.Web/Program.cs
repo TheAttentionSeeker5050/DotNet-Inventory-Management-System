@@ -1,5 +1,7 @@
 using Inventorium.Web.Components;
 using Inventorium.Web.Components.Pages;
+using Inventorium.Web.Services;
+using Inventorium.Web.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,14 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddSingleton<IBlazorAppBase,BlazorAppBase>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+
+builder.Services.AddScoped(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7188/api")
+    });
+
 
 var app = builder.Build();
 

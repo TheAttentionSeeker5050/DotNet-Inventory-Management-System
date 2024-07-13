@@ -1,15 +1,29 @@
 ﻿@page "/product-categories"
-@inject IBlazorAppBase _blazorAppBase
+@inherits ProductCategoriesBase
 
 <PageTitle>Product Categories</PageTitle>
 
 <h1>Product Categories</h1>
 
-
-@code {
-    protected override async Task OnInitializedAsync()
+<div class="container">
+    <div class="row row-cols-2">
+        <div class="col fs-5 fw-semibold">Category Name</div>
+        <div class="col fs-5 fw-semibold">Category Description</div>
+    </div>
+    @foreach (var category in ProductCategories)
     {
-        await base.OnInitializedAsync();
-        _blazorAppBase.setTitle("Categories");
+        <div class="row row-cols-2">
+            <div class="col">
+                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
+                    @category.Name
+                </a>
+            </div>
+            <div class="col">
+                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
+                    @(@category.Description.Length > 0 ? @category.Description : "No Description")
+                </a>
+            </div>
+        </div>
     }
-}
+</div>
+
