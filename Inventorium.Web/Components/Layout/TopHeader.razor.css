@@ -1,0 +1,13 @@
+﻿#top-header {
+    .nav-link {
+        color: #E1E0E0;
+    }
+
+    .nav-link:hover {
+        color: #FBFAFA;
+    }
+
+    .active {
+        color: white;
+    }
+}
