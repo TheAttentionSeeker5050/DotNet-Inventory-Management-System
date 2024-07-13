@@ -1,4 +1,6 @@
 ﻿@page "/product-items"
+@inject IBlazorAppBase _blazorAppBase
+
 
 <PageTitle>Product Items</PageTitle>
 
@@ -6,5 +8,9 @@
 
 
 @code {
-
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _blazorAppBase.setTitle("Items");
+    }
 }

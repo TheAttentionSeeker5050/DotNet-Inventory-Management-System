@@ -1,22 +1,24 @@
-﻿<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" id="top-header">
+﻿@inject IBlazorAppBase _blazorAppBase
+
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" id="top-header">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Inventorium</a>
+        <a class="navbar-brand" href="/">Inventorium </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link @(@_blazorAppBase.getTitle() == "Home" ? "active" : "")" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product-references">Product References</a>
+                    <a class="nav-link @(@_blazorAppBase.getTitle() == "References" ? "active" : "")" href="/product-references">Product References</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product-categories">Product Categories</a>
+                    <a class="nav-link @(@_blazorAppBase.getTitle() == "Categories" ? "active" : "")" href="/product-categories">Product Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product-items">Product Items</a>
+                    <a class="nav-link @(@_blazorAppBase.getTitle() == "Items" ? "active" : "")" href="/product-items">Product Items</a>
                 </li>
             </ul>
         </div>
@@ -24,5 +26,5 @@
 </nav>
 
 @code {
-
+    
 }

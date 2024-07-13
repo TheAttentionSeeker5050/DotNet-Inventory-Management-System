@@ -1,4 +1,6 @@
 ﻿@page "/product-references"
+@inject IBlazorAppBase _blazorAppBase
+
 
 <PageTitle>Product References</PageTitle>
 
@@ -6,5 +8,9 @@
 
 
 @code {
-
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _blazorAppBase.setTitle("References");
+    }
 }

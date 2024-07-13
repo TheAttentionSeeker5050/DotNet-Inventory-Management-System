@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Inventorium.Dtos\Inventorium.Dtos.csproj"></ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\javascript\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\media\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,16 @@
 ﻿@page "/"
+@inject IBlazorAppBase _blazorAppBase
 
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to Inventorium!</h1>
 
 <p>This is an inventory management system, here you can track and update the product inventories on your shop, as well as graphing and exporting the data</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _blazorAppBase.setTitle("Home");
+    }
+}

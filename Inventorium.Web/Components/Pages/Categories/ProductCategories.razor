@@ -1,4 +1,5 @@
 ﻿@page "/product-categories"
+@inject IBlazorAppBase _blazorAppBase
 
 <PageTitle>Product Categories</PageTitle>
 
@@ -6,5 +7,9 @@
 
 
 @code {
-
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _blazorAppBase.setTitle("Categories");
+    }
 }
