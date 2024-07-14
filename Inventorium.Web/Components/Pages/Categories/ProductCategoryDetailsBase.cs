@@ -1,17 +1,19 @@
 ﻿using Inventorium.Dtos.Dtos;
+using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 
-
-
 namespace Inventorium.Web.Components.Pages.Categories
 {
-    public class ProductCategoriesBase : ComponentBase
+    public class ProductCategoryDetailsBase : ComponentBase
     {
-
-        // The dynamically displayed object to display product category list
+        // The url slug parameter id
         [Parameter]
-        public IEnumerable<ProductCategoryDto> ProductCategories { get; set; } = Enumerable.Empty<ProductCategoryDto>();
+        public int categoryId { get; set; }
+
+        // The dynamically displayed object to display product category details
+        [Parameter]
+        public ProductCategoryDto ProductCategory { get; set; } = new ProductCategoryDto();
 
         // Category service handler
         [Inject]
@@ -28,11 +30,11 @@ namespace Inventorium.Web.Components.Pages.Categories
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            
+
             try
             {
                 this.BlazorAppBase.setTitle("Categories");
-                ProductCategories = await CategoryService.GetCategoriesAsync();
+                ProductCategory = await CategoryService.GetCategoryByIdAsync(categoryId);
 
             }
             catch (Exception ex)

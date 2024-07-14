@@ -42,5 +42,39 @@ namespace Inventorium.Web.Services
                 // throw new Exception($"{ex.Message}", ex);
             }
         }
+
+        public async Task<ProductCategoryDto> GetCategoryByIdAsync(int id)
+        {
+            try
+            {
+                // This method GetFromJsonAsync transform the response into json with the ProductDto format for a single product
+                // We use this method instead to do the type conversion after the  response is gotten, we want to control what to do if the server call is successful or not
+                var response = await httpClient.GetAsync($"api/ProductCategory/{id}");
+
+                // if response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    // if no content is returned, or empty response, return default content
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return default(ProductCategoryDto);
+                    }
+
+                    // if content, make conversion and return appropriate resppnse
+                    return await response.Content.ReadFromJsonAsync<ProductCategoryDto>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
+
+            }
+            catch (Exception)
+            {
+                // Log Exception
+                throw;
+            }
+        }
     }
 }
