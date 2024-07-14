@@ -55,12 +55,14 @@ namespace Inventorium.API.Controllers
             {
                 var productCategory = await _productCategoryRepository.GetProductCategoryById(id);
                 var productReferences = await _productReferenceRepository.GetProductReferences();
+
                 if (productCategory == null || productReferences == null || productReferences.ToList().Count == 0)
                 {
                     return NotFound();
                 }
                 else
                 {
+                    
                     var productCategoriesDto = productCategory.ConvertToDto(productReferences);
                     return Ok(productCategoriesDto);
 

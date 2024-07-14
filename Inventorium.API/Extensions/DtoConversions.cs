@@ -20,7 +20,12 @@ namespace Inventorium.API.Extensions
                                            Name = productReference.Name,
                                            Description = productReference.Description,
                                            Price = productReference.Price,
-                                           Discount = productReference.Discount
+                                           Discount = productReference.Discount,
+                                           DiscountedPrice = productReference.Discount > 0 && 
+                                           productReference.Discount < 100 ?  
+                                           productReference.Price * 
+                                           (100 - productReference.Discount)/100 
+                                           : null
                                        });
 
             return new ProductCategoryDto()
