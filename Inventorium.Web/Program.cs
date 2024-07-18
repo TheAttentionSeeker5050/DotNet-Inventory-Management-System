@@ -9,8 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// App base handler for app wide metadata
 builder.Services.AddSingleton<IBlazorAppBase,BlazorAppBase>();
+
+// API service for fetching data from backend
 builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<IReferenceService,ReferenceService>();
+builder.Services.AddScoped<IItemService,ItemService>();
 
 builder.Services.AddScoped(sp =>
     new HttpClient

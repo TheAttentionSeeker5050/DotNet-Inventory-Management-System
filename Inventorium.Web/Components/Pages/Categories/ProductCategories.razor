@@ -6,13 +6,19 @@
 <h1>Product Categories</h1>
 
 <div class="container">
-    <div class="row row-cols-2">
+    <div class="row row-cols-3">
+        <div class="col fs-5 fw-semibold">Id</div>
         <div class="col fs-5 fw-semibold">Category Name</div>
         <div class="col fs-5 fw-semibold">Category Description</div>
     </div>
     @foreach (var category in ProductCategories)
     {
-        <div class="row row-cols-2">
+        <div class="row row-cols-3">
+            <div class="col">
+                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
+                    @category.Id
+                </a>
+            </div>
             <div class="col">
                 <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
                     @category.Name

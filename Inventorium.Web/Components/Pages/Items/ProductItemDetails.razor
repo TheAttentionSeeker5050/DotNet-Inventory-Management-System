@@ -1,0 +1,20 @@
+﻿@page "/product-items/{itemId:int}"
+@inject IBlazorAppBase _blazorAppBase
+
+
+<PageTitle>Product Item Details</PageTitle>
+
+<h1>Product Item Details</h1>
+
+
+@code {
+    // The url slug parameter id
+    [Parameter]
+    public int itemId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _blazorAppBase.setTitle("Item Details");
+    }
+}
