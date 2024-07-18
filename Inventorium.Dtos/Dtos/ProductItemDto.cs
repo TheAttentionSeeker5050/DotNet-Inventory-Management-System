@@ -10,5 +10,7 @@
 
         public double Price { get; set; }
         public double Discount { get; set; }
+        public double? DiscountedPrice { get; set; }
+
     }
 }

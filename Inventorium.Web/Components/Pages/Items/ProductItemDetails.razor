@@ -1,5 +1,5 @@
 ﻿@page "/product-items/{itemId:int}"
-@inject IBlazorAppBase _blazorAppBase
+@inherits ProductItemDetailsBase
 
 
 <PageTitle>Item Details</PageTitle>
@@ -7,14 +7,61 @@
 <h1>Product Item Details</h1>
 
 
-@code {
-    // The url slug parameter id
-    [Parameter]
-    public int itemId { get; set; }
+@if (ProductItem?.Id > 0)
+{
+    <div class="card w-100 my-5" style="max-width: 36rem;">
+        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Category+Image" class="" alt="Thumnail for product category">
+        <div class="card-body">
+            <h2 class="card-title fs-5">@ProductItem.Name</h2>
+            <p class="card-text">
+                Product Reference: @(@ProductItem.ProductReferenceName?.Length > 0 ? @ProductItem.ProductReferenceName : "N/A")
+            </p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Product Reference:</strong>
+                    @(@ProductItem.ProductReferenceName?.Length > 0 ? @ProductItem.ProductReferenceName : "N/A")
+                </li>
+                <li class="list-group-item">
+                    <strong>Price:</strong>
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        _blazorAppBase.setTitle("Item Details");
-    }
+                    @if (ProductItem.DiscountedPrice != null)
+                    {
+                        <span class="text-decoration-line-through">
+                            @(
+                                String.Format("{0:C}", ProductItem.Price)
+                            )
+                        </span>
+
+                    }
+                    <span class="">
+                        &nbsp @(
+                            ProductItem.DiscountedPrice != null ?
+                            String.Format("{0:C}", ProductItem.DiscountedPrice)
+                            :
+                            String.Format("{0:C}", ProductItem.Price)
+                         )
+                    </span>
+
+                    @if (ProductItem.Discount > 0)
+                    {
+                        <strong class="text-danger">
+                            &nbsp @(
+                                String.Format("{0:P2}", -ProductItem.Discount)
+                            )
+                        </strong>
+                    }
+                </li>
+            </ul>
+            <p class="card-content">
+                
+            </p>
+
+            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+}
+else
+{
+    <p>No Data to Display</p>
 }

@@ -6,3 +6,36 @@
 
 <h1>Product Reference Details</h1>
 
+
+@if (ProductReference?.Id > 0)
+{
+    <div class="card w-100 my-5" style="max-width: 36rem;">
+        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Category+Image" class="" alt="Thumnail for product category">
+        <div class="card-body">
+            <h2 class="card-title fs-5">@ProductReference.Name</h2>
+            <p class="card-text">
+                @(@ProductReference.Description?.Length > 0 ? @ProductReference.Description : "No Description")
+            </p>
+            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    <h2>Product Items</h2>
+    @foreach (var item in ProductReference.ProductItems)
+    {
+        <div class="card my-2 w-100" style="max-width: 60rem;">
+            <div class="card-body">
+                <h3 class="card-title fs-5">
+                    <a href="/product-items/@item.Id" class="link-underline link-underline-opacity-0">
+                        @item.Name
+                    </a>
+                </h3>
+            </div>
+
+        </div>
+    }
+}
+else
+{
+    <p>No Data to Display</p>
+}

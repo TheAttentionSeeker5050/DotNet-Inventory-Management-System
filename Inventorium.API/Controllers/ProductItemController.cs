@@ -58,23 +58,23 @@ namespace Inventorium.API.Controllers
             try
             {
                 var productItem = await _productItemRepository.GetProductItemById(id);
-                var productItemId = productItem.Id;
-                if (productItemId == null)
+                var productReferenceId = productItem.ProductReferenceId;
+
+                if (productReferenceId == null || productItem == null)
                 {
                     return NotFound();
                 }
-                var productReference = await _productReferenceRepository.GetProductReferenceById(productItemId);
 
-                if (productItem == null || productReference == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var productItemDto = productItem.ConvertToDto(productReference);
-                    return Ok(productItemDto);
+                var productReference = await _productReferenceRepository.GetProductReferenceById(productReferenceId);
 
+                if (productReference == null)
+                {
+                    return BadRequest();
                 }
+
+                var productItemDto = productItem.ConvertToDto(productReference);
+                return Ok(productItemDto);
+
             }
             catch (Exception ex)
             {

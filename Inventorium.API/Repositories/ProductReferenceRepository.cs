@@ -29,6 +29,7 @@ namespace Inventorium.API.Repositories
         public async Task<ProductReferenceModel> GetProductReferenceById(int id)
         {
             return await _context.ProductReferences.FindAsync(id);
+            
                 /*.Include(p => p.ProductItems)
                 .Include(p => p.ProductCategory)
                 .AsNoTracking()

@@ -7,6 +7,7 @@
         public string Description { get; set; }
 
         public double Price { get; set; } = 0;
+        public double? DiscountedPrice { get; set; } = 0;
         public double Discount { get; set; } = 0;
 
         // now the relations of the product references

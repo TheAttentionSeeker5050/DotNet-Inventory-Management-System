@@ -73,6 +73,11 @@ namespace Inventorium.API.Extensions
                 Description = productReference.Description,
                 Price = productReference.Price,
                 Discount = productReference.Discount,
+                DiscountedPrice = productReference.Discount > 0 &&
+                                           productReference.Discount < 100 ?
+                                           productReference.Price *
+                                           (100 - productReference.Discount) / 100
+                                           : null,
 
                 ProductCategoryId = productCategory.Id,
                 ProductCategoryName = productCategory.Name,
@@ -114,7 +119,12 @@ namespace Inventorium.API.Extensions
                 ProductReferenceId = productReference.Id,
                 ProductReferenceName = productReference.Name,
                 Price = productReference.Price,
-                Discount = productReference.Discount
+                Discount = productReference.Discount,
+                DiscountedPrice = productReference.Discount > 0 &&
+                                           productReference.Discount < 100 ?
+                                           productReference.Price *
+                                           (100 - productReference.Discount) / 100
+                                           : null,
             };
         }
 
