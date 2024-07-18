@@ -1,4 +1,7 @@
-﻿namespace Inventorium.Web.Components.Pages
+﻿
+using Microsoft.AspNetCore.Components;
+
+namespace Inventorium.Web.Components.Pages
 { 
     public interface IBlazorAppBase
     {
@@ -11,7 +14,12 @@
     {
         // page title
         public string? Title { get; set; } = "";
+        public string? AppBaseUrl { get; set; } = null;
 
+        public BlazorAppBase()
+        {
+            AppBaseUrl = "https://localhost:7165";
+        }
         public void setTitle(string title) {
             if (Title == null) Title = "";
             else Title = title;

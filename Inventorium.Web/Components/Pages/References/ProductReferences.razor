@@ -1,45 +1,35 @@
 ﻿@page "/product-references"
 @inherits ProductReferencesBase
+@using Inventorium.Web.Components.Layout
 
 
 
 <PageTitle>References</PageTitle>
 
+
 <h1>Product References</h1>
 
-
-
-<div class="container">
-    <div class="row row-cols-4">
-        <div class="col fs-5 fw-semibold">Id</div>
-        <div class="col fs-5 fw-semibold">Reference Name</div>
-        <div class="col fs-5 fw-semibold">Reference Description</div>
-        <div class="col fs-5 fw-semibold">Category</div>
-    </div>
-    @foreach (var reference in ProductReferences)
-    {
-        <div class="row row-cols-4">
-            <div class="col">
-                <a href="/product-references/1" class="link-underline link-underline-opacity-0">
-                    @reference.Id
-                </a>
-            </div>
-            <div class="col">
-                <a href="/product-references/1" class="link-underline link-underline-opacity-0">
-                    @reference.Name
-                </a>
-            </div>
-            <div class="col">
-                <a href="/product-references/1" class="link-underline link-underline-opacity-0">
-                    @(@reference.Description.Length > 0 ? @reference.Description : "No Description")
-                </a>
-            </div>
-            <div class="col">
-                <a href="/product-references/1" class="link-underline link-underline-opacity-0">
-                    @reference.ProductCategoryName
-                </a>
-            </div>
-        </div>
-    }
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="col fs-5 fw-semibold">Id</th>
+                <th scope="col" class="col fs-5 fw-semibold">Reference Name</th>
+                <th scope="col" class="col fs-5 fw-semibold">Reference Description</th>
+                <th scope="col" class="col fs-5 fw-semibold">Category</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reference in ProductReferences)
+            {
+                <tr onclick="window.location='/product-references/@reference.Id'" class="clickable" style="cursor: pointer;">
+                        <td>@reference.Id</td>
+                        <td>@reference.Name</td>
+                        <td>@(@reference.Description.Length > 0 ? @reference.Description : "No Description")</td>
+                        <td>@reference.ProductCategoryName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-

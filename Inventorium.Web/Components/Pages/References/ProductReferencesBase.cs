@@ -3,6 +3,7 @@ using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 
+
 namespace Inventorium.Web.Components.Pages.References
 {
     public class ProductReferencesBase : ComponentBase

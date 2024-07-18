@@ -34,7 +34,7 @@ namespace Inventorium.Web.Components.Pages.References
 
             try
             {
-                this.BlazorAppBase.setTitle("Category Details");
+                this.BlazorAppBase.setTitle("Reference Details");
                 ProductReference = await ReferenceService.GetReferenceByIdAsync(referenceId);
 
             }

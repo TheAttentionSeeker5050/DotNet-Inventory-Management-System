@@ -1,35 +1,33 @@
 ﻿@page "/product-categories"
 @inherits ProductCategoriesBase
+@using Inventorium.Web.Components.Layout
 
-<PageTitle>Product Categories</PageTitle>
+
+<PageTitle>Categories</PageTitle>
 
 <h1>Product Categories</h1>
 
-<div class="container">
-    <div class="row row-cols-3">
-        <div class="col fs-5 fw-semibold">Id</div>
-        <div class="col fs-5 fw-semibold">Category Name</div>
-        <div class="col fs-5 fw-semibold">Category Description</div>
-    </div>
-    @foreach (var category in ProductCategories)
-    {
-        <div class="row row-cols-3">
-            <div class="col">
-                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
-                    @category.Id
-                </a>
-            </div>
-            <div class="col">
-                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
-                    @category.Name
-                </a>
-            </div>
-            <div class="col">
-                <a href="/product-categories/1" class="link-underline link-underline-opacity-0">
-                    @(@category.Description.Length > 0 ? @category.Description : "No Description")
-                </a>
-            </div>
-        </div>
-    }
-</div>
 
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="col fs-5 fw-semibold">Id</th>
+                <th scope="col" class="col fs-5 fw-semibold">Category Name</th>
+                <th scope="col" class="col fs-5 fw-semibold">Category Description</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in ProductCategories)
+            {
+                <tr onclick="window.location='/product-categories/@category.Id'" class="clickable" style="cursor: pointer;">
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@(@category.Description.Length > 0 ? @category.Description : "No Description")</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

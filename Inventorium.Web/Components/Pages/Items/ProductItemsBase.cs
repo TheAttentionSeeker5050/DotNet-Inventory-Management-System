@@ -1,19 +1,19 @@
 ﻿using Inventorium.Dtos.Dtos;
+using Inventorium.Web.Components.Pages.References;
+using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 
-namespace Inventorium.Web.Components.Pages.Categories
+namespace Inventorium.Web.Components.Pages.Items
 {
-    public class ProductCategoriesBase : ComponentBase
+    public class ProductItemsBase : ComponentBase
     {
+        // The dynamically displayed object to display product reference list
+        [Parameter] public IEnumerable<ProductItemDto> ProductItems { get; set; } = Enumerable.Empty<ProductItemDto>();
 
-        // The dynamically displayed object to display product category list
-        [Parameter]
-        public IEnumerable<ProductCategoryDto> ProductCategories { get; set; } = Enumerable.Empty<ProductCategoryDto>();
-
-        // Category service handler
+        // Reference service handler
         [Inject]
-        public ICategoryService CategoryService { get; set; }
+        public IItemService ItemService{ get; set; }
 
         // Base app metadata handler (title, etc)
         [Inject]
@@ -26,11 +26,11 @@ namespace Inventorium.Web.Components.Pages.Categories
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            
+
             try
             {
-                this.BlazorAppBase.setTitle("Categories");
-                ProductCategories = await CategoryService.GetCategoriesAsync();
+                this.BlazorAppBase.setTitle("Items");
+                ProductItems = await ItemService.GetItemsAsync();
 
             }
             catch (Exception ex)
