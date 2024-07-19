@@ -10,7 +10,7 @@
 <h1>Product References</h1>
 
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th scope="col" class="col fs-5 fw-semibold">Id</th>
@@ -23,7 +23,7 @@
         <tbody>
             @foreach (var reference in ProductReferences)
             {
-                <tr onclick="window.location='/product-references/@reference.Id'" class="clickable" style="cursor: pointer;">
+                <tr onclick="window.location='/product-references/@reference.Id'" class="clickable" style="cursor: pointer; hover: {background-color: red !important}">
                         <td>@reference.Id</td>
                         <td>@reference.Name</td>
                         <td>@(@reference.Description.Length > 0 ? @reference.Description : "No Description")</td>

@@ -2,6 +2,7 @@ using Inventorium.Web.Components;
 using Inventorium.Web.Components.Pages;
 using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// App base handler for app wide metadata
-builder.Services.AddSingleton<IBlazorAppBase,BlazorAppBase>();
+
 
 // API service for fetching data from backend
 builder.Services.AddScoped<ICategoryService,CategoryService>();
@@ -23,6 +23,8 @@ builder.Services.AddScoped(sp =>
         BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7188/api")
     });
 
+// App base handler for app wide metadata
+builder.Services.AddScoped<IBlazorAppBase, BlazorAppBase>();
 
 var app = builder.Build();
 

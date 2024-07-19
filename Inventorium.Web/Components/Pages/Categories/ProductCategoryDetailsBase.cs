@@ -33,7 +33,7 @@ namespace Inventorium.Web.Components.Pages.Categories
 
             try
             {
-                this.BlazorAppBase.setTitle("Category Details");
+                this.BlazorAppBase.SetTitle("Category Details");
                 ProductCategory = await CategoryService.GetCategoryByIdAsync(categoryId);
 
             }

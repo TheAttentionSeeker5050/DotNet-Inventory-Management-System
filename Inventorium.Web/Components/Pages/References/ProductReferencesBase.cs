@@ -29,7 +29,7 @@ namespace Inventorium.Web.Components.Pages.References
 
             try
             {
-                this.BlazorAppBase.setTitle("References");
+                this.BlazorAppBase.SetTitle("References");
                 ProductReferences = await ReferenceService.GetReferencesAsync();
 
             }

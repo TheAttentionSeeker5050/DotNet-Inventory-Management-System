@@ -33,7 +33,7 @@ namespace Inventorium.Web.Components.Pages.Items
 
             try
             {
-                this.BlazorAppBase.setTitle("Item Details");
+                this.BlazorAppBase.SetTitle("Item Details");
                 ProductItem = await ItemService.GetItemByIdAsync(itemId);
 
             }
