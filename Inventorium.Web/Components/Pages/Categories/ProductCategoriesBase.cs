@@ -29,8 +29,16 @@ namespace Inventorium.Web.Components.Pages.Categories
             
             try
             {
-                this.BlazorAppBase.SetTitle("Categories");
-                ProductCategories = await CategoryService.GetCategoriesAsync();
+                if (BlazorAppBase.GetURLSearchParam() != null)
+                {
+                    this.BlazorAppBase.SetTitle("Categories Search");
+                    ProductCategories = await CategoryService.GetCategoriesBySearchParamAsync(BlazorAppBase.GetURLSearchParam());
+                } else
+                {
+                    this.BlazorAppBase.SetTitle("Categories");
+                    ProductCategories = await CategoryService.GetCategoriesAsync();
+
+                }
 
             }
             catch (Exception ex)

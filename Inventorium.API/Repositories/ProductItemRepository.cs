@@ -2,6 +2,8 @@
 using Inventorium.API.Models;
 using Inventorium.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using Inventorium.API.Extensions;
 
 namespace Inventorium.API.Repositories
 {
@@ -20,6 +22,29 @@ namespace Inventorium.API.Repositories
         {
             return await _context.ProductItems.ToListAsync();
                 
+        }
+
+        public async Task<IEnumerable<ProductItemModel>> GetProductItemsBySearchQuery(string query) // This can be null list if the product items are empty
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return new List<ProductItemModel>();
+            }
+
+            var queryWords = query.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Start with an expression that is always false
+            Expression<Func<ProductItemModel, bool>> predicate = item => false;
+
+            foreach (var word in queryWords)
+            {
+                predicate = predicate.Or(item =>
+                    item.Name != null && item.Name.ToLower().Contains(word));
+            }
+
+            return await _context.ProductItems
+                .Where(predicate)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ProductItemModel>> GetProductItemsByProductReference(int id) // This can be null list if the product categories are empty

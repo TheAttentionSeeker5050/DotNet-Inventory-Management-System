@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject IBlazorAppBase _blazorAppBase
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,7 +16,7 @@
     <HeadOutlet />
 </head>
 
-<body class="d-flex flex-column justify-content-between">
+<body class="d-flex flex-column justify-content-between" onclick="OnClickAway">
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
@@ -21,3 +24,11 @@
 </body>
 
 </html>
+
+@code {
+    
+
+    
+
+    
+}

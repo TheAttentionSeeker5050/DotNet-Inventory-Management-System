@@ -51,6 +51,36 @@ namespace Inventorium.API.Controllers
             }
         }
 
+        // GET all the searches for items
+        [HttpGet("Search/{query}")]
+        public async Task<ActionResult<IEnumerable<ProductCategoryDto>>> GetProductItemsSearchResults(string query)
+        {
+            try
+            {
+                // Get the product searches of every table type
+
+                var productItems = await _productItemRepository.GetProductItemsBySearchQuery(query);
+                var productReferences = await _productReferenceRepository.GetProductReferences();
+                if (productItems == null || productItems.ToList().Count() == 0 || productReferences == null || productReferences.ToList().Count() == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var productItemsDtos = productItems.ConvertToDto(productReferences);
+                    return Ok(productItemsDtos);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // If an exception occurs return the status code 500 with a error message
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, "Could not get the product categories from the database"
+                );
+            }
+        }
+
         // GET single product item by ID with children tables
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductItemDto>> GetProductItem(int id)

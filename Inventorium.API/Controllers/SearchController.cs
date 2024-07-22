@@ -22,34 +22,7 @@ namespace Inventorium.API.Controllers
             _productReferenceRepository = productReferenceRepository;
             _productItemRepository = productItemRepository;
         }
-/*
-        // GET all the searches
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SearchOptionDto>>> GetSearchResults(string query)
-        {
-            try
-            {
-                // Get the product searches of every table type
 
-                var productCategories = await _productCategoryRepository.GetProductCategoryBySearchQuery(query);
-                if (productCategories == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var productCategoriesDtos = productCategories.ConvertToDto();
-                    return Ok(productCategoriesDtos);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // If an exception occurs return the status code 500 with a error message
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError, "Could not get the product categories from the database"
-                );
-            }
-        }*/
+        
     }
 }

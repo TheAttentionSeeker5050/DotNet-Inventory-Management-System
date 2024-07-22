@@ -36,25 +36,23 @@
                     <a class="nav-link @(@_blazorAppBase.GetTitle() == "Home" ? "text-warning-emphasis" : "")" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "References" ? "text-warning-emphasis" : "")" href="/product-references">Product References</a>
+                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "References" || @_blazorAppBase.GetTitle() == "References Search" ? "text-warning-emphasis" : "")" href="/product-references">Product References</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "Categories" ? "text-warning-emphasis" : "")" href="/product-categories">Product Categories</a>
+                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "Categories" || @_blazorAppBase.GetTitle() == "Categories Search" ? "text-warning-emphasis" : "")" href="/product-categories">Product Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "Items" ? "text-warning-emphasis" : "")" href="/product-items">Product Items</a>
+                    <a class="nav-link @(@_blazorAppBase.GetTitle() == "Items" || @_blazorAppBase.GetTitle() == "Items Search" ? "text-warning-emphasis" : "")" href="/product-items">Product Items</a>
                 </li>
 
                 <form method="get" action="" class="d-flex p-1 gap-2" role="search" id="search-bar">
-                    <input class="form-control position-relative text-black" name="seach-value" id="search-bar__input" placeholder="Search" aria-label="Search" @bind="SearchInputValue" @oninput="OnInputChange">
-                    <input type="hidden" id="hidden-category" name="search-category" />
+                    <input class="form-control position-relative text-black" name="seach-value" id="search-bar__input" placeholder="Search" aria-label="Search" @bind="SearchInputValue" @oninput="OnInputChange" >
                     <button class="btn btn-light" type="submit">Search</button>
 
-                    <div class="list-group position-absolute top-100" id="datalistOptions">
-                        @* <a href="#" class="list-group-item list-group-item-action list-group-item-light">Something</a> *@
+                    <div class="list-group position-absolute top-100" id="datalistOptions" @onclick="ClearInputs">
                         @foreach (var item in SearchByTableOptions)
                         {
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">@item.OptionDisplayValue in @item.OptionDisplayCategory</a>
+                            <a href="@item.OptionSearchURL" class="list-group-item list-group-item-action list-group-item-light">@item.OptionDisplayValue in @item.OptionDisplayCategory</a>
                         }
                     </div>
 
@@ -66,13 +64,19 @@
 
 @code {
 
+
+
+
     private string? SearchInputValue { get; set; }
+
+
+
 
     private class SearchBarOptionItem
     {
         public string? OptionDisplayCategory { get; set; }
         public string? OptionDisplayValue { get; set; }
-
+        public string? OptionSearchURL { get; set; }
     }
 
     private SearchBarOptionItem SelectedSearchBarOptionItem { get; set; } = new SearchBarOptionItem();
@@ -85,29 +89,37 @@
         await UpdateSearchOptions();
     }
 
+    private async Task ClearInputs()
+    {
+        SearchByTableOptions.Clear();
+        SearchInputValue = null;
+    }
+
     private async Task UpdateSearchOptions()
     {
         SearchByTableOptions.Clear();
 
-        Console.WriteLine(SearchInputValue);
 
         if (!string.IsNullOrEmpty(SearchInputValue))
         {
             var searchCategoryOption = new SearchBarOptionItem
                 {
                     OptionDisplayCategory = "Categories",
-                    OptionDisplayValue = SearchInputValue
+                    OptionDisplayValue = SearchInputValue,
+                    OptionSearchURL = $"/product-categories?q={SearchInputValue}"
                 };
             var searchReferenceOption = new SearchBarOptionItem
                 {
                     OptionDisplayCategory = "References",
-                    OptionDisplayValue = SearchInputValue
+                    OptionDisplayValue = SearchInputValue,
+                    OptionSearchURL = $"/product-references?q={SearchInputValue}"
                 };
 
             var searchItemOption = new SearchBarOptionItem
                 {
                     OptionDisplayCategory = "Items",
-                    OptionDisplayValue = SearchInputValue
+                    OptionDisplayValue = SearchInputValue,
+                    OptionSearchURL = $"/product-items?q={SearchInputValue}"
                 };
 
             SearchByTableOptions.Add(searchCategoryOption);
