@@ -146,5 +146,17 @@ namespace Inventorium.API.Extensions
                     });
         }
 
+        // Dto for displaying a list of search results
+        public static IEnumerable<SearchOptionDto> ConvertToDto(this IEnumerable<ProductCategoryModel> productItems, string value)
+        {
+            return (from productItem in productItems
+                    
+                    select new SearchOptionDto()
+                    {
+                        OptionDisplayCategory = "Categories",
+                        OptionDisplayValue = value,
+                    });
+        }
+
     }
 }

@@ -1,4 +1,28 @@
 ﻿@inject IBlazorAppBase _blazorAppBase
+@rendermode InteractiveServer
+
+<style>
+    #search-bar {
+        input:: placeholder
+
+    {
+        color: black;
+    }
+
+    #search-bar__input {
+        background-color: #e0e0e0;
+    }
+
+        #search-bar__input:focus {
+            background-color: #c7c7c6 !important;
+        }
+
+    #search-bar__input {
+        width: 260px;
+    }
+
+    }
+</style>
 
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" id="top-header">
     <div class="container-fluid">
@@ -20,11 +44,76 @@
                 <li class="nav-item">
                     <a class="nav-link @(@_blazorAppBase.GetTitle() == "Items" ? "text-warning-emphasis" : "")" href="/product-items">Product Items</a>
                 </li>
+
+                <form method="get" action="" class="d-flex p-1 gap-2" role="search" id="search-bar">
+                    <input class="form-control position-relative text-black" name="seach-value" id="search-bar__input" placeholder="Search" aria-label="Search" @bind="SearchInputValue" @oninput="OnInputChange">
+                    <input type="hidden" id="hidden-category" name="search-category" />
+                    <button class="btn btn-light" type="submit">Search</button>
+
+                    <div class="list-group position-absolute top-100" id="datalistOptions">
+                        @* <a href="#" class="list-group-item list-group-item-action list-group-item-light">Something</a> *@
+                        @foreach (var item in SearchByTableOptions)
+                        {
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">@item.OptionDisplayValue in @item.OptionDisplayCategory</a>
+                        }
+                    </div>
+
+                </form>
             </ul>
         </div>
     </div>
 </nav>
 
 @code {
-    
+
+    private string? SearchInputValue { get; set; }
+
+    private class SearchBarOptionItem
+    {
+        public string? OptionDisplayCategory { get; set; }
+        public string? OptionDisplayValue { get; set; }
+
+    }
+
+    private SearchBarOptionItem SelectedSearchBarOptionItem { get; set; } = new SearchBarOptionItem();
+
+    private List<SearchBarOptionItem> SearchByTableOptions { get; set; } = new List<SearchBarOptionItem>();
+
+    private async Task OnInputChange(ChangeEventArgs e)
+    {
+        SearchInputValue = e.Value?.ToString();
+        await UpdateSearchOptions();
+    }
+
+    private async Task UpdateSearchOptions()
+    {
+        SearchByTableOptions.Clear();
+
+        Console.WriteLine(SearchInputValue);
+
+        if (!string.IsNullOrEmpty(SearchInputValue))
+        {
+            var searchCategoryOption = new SearchBarOptionItem
+                {
+                    OptionDisplayCategory = "Categories",
+                    OptionDisplayValue = SearchInputValue
+                };
+            var searchReferenceOption = new SearchBarOptionItem
+                {
+                    OptionDisplayCategory = "References",
+                    OptionDisplayValue = SearchInputValue
+                };
+
+            var searchItemOption = new SearchBarOptionItem
+                {
+                    OptionDisplayCategory = "Items",
+                    OptionDisplayValue = SearchInputValue
+                };
+
+            SearchByTableOptions.Add(searchCategoryOption);
+            SearchByTableOptions.Add(searchReferenceOption);
+            SearchByTableOptions.Add(searchItemOption);
+        }
+    }
+
 }

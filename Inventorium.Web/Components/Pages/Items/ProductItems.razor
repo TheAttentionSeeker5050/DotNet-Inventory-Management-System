@@ -23,7 +23,7 @@
                 <tr onclick="window.location='/product-items/@item.Id'" class="clickable" style="cursor: pointer;">
                     <td>@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@(@item.ProductReferenceName.Length > 0 ? @item.ProductReferenceName : "No Description")</td>
+                    <td>@(item.ProductReferenceName.Length > 0 ? item.ProductReferenceName : "No Description")</td>
                 </tr>
             }
         </tbody>

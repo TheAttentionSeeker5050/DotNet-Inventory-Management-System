@@ -10,11 +10,18 @@
 @if (ProductReference?.Id > 0)
 {
     <div class="card w-100 my-5" style="max-width: 36rem;">
-        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Category+Image" class="" alt="Thumnail for product category">
+        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Reference+Image" class="" alt="Thumnail for product category">
         <div class="card-body">
             <h2 class="card-title fs-5">@ProductReference.Name</h2>
             <p class="card-text">
-                @(@ProductReference.Description?.Length > 0 ? @ProductReference.Description : "No Description")
+                @(ProductReference.Description?.Length > 0 ? ProductReference.Description : "No Description")
+            </p>
+
+            <p class="card-text">
+                Product Category:
+                <a href="/product-categories/@ProductReference.ProductCategoryId">
+                    @(ProductReference.ProductCategoryName?.Length > 0 ? ProductReference.ProductCategoryName : "N/A")
+                </a>
             </p>
             <a href="#" class="btn btn-primary">Edit</a>
             <a href="#" class="btn btn-danger">Delete</a>

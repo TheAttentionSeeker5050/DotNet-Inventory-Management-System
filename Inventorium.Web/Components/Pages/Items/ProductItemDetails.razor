@@ -10,16 +10,19 @@
 @if (ProductItem?.Id > 0)
 {
     <div class="card w-100 my-5" style="max-width: 36rem;">
-        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Category+Image" class="" alt="Thumnail for product category">
+        <img src="https://placehold.co/600x400/EEE/31343C?text=Product+Item+Image" class="" alt="Thumnail for product category">
         <div class="card-body">
             <h2 class="card-title fs-5">@ProductItem.Name</h2>
             <p class="card-text">
-                Product Reference: @(@ProductItem.ProductReferenceName?.Length > 0 ? @ProductItem.ProductReferenceName : "N/A")
+                Product Reference:
+                <a href="/product-references/@ProductItem.ProductReferenceId">
+                     @(ProductItem.ProductReferenceName?.Length > 0 ? ProductItem.ProductReferenceName : "N/A")
+                </a>
             </p>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <strong>Product Reference:</strong>
-                    @(@ProductItem.ProductReferenceName?.Length > 0 ? @ProductItem.ProductReferenceName : "N/A")
+                    @(ProductItem.ProductReferenceName?.Length > 0 ? ProductItem.ProductReferenceName : "N/A")
                 </li>
                 <li class="list-group-item">
                     <strong>Price:</strong>
@@ -52,9 +55,6 @@
                     }
                 </li>
             </ul>
-            <p class="card-content">
-                
-            </p>
 
             <a href="#" class="btn btn-primary">Edit</a>
             <a href="#" class="btn btn-danger">Delete</a>

@@ -26,7 +26,7 @@
                 <tr onclick="window.location='/product-references/@reference.Id'" class="clickable" style="cursor: pointer; hover: {background-color: red !important}">
                         <td>@reference.Id</td>
                         <td>@reference.Name</td>
-                        <td>@(@reference.Description.Length > 0 ? @reference.Description : "No Description")</td>
+                        <td>@(reference.Description.Length > 0 ? reference.Description : "No Description")</td>
                         <td>@reference.ProductCategoryName</td>
                 </tr>
             }
