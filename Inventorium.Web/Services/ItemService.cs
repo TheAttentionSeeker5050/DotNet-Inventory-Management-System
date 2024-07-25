@@ -39,8 +39,40 @@ namespace Inventorium.Web.Services
             catch (Exception ex)
             {
                 // Log Exception
-                throw;
-                // throw new Exception($"{ex.Message}", ex);
+                // throw;
+                throw new Exception($"{ex.Message}", ex);
+            }
+        }
+
+        public async Task<IEnumerable<ProductItemDto>> GetItemsBySearchParamAsync(string query)
+        {
+            try
+            {
+                // This method GetFromJsonAsync transform the response into json IEnumerable with the ProductDto format
+                var response = await this.httpClient.GetAsync($"api/ProductItem/Search/{query}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return Enumerable.Empty<ProductItemDto>();
+                    }
+
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<ProductItemDto>>();
+                }
+
+                else
+                {
+                    var messsage = await response.Content.ReadAsStringAsync();
+                    throw new Exception(messsage);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Log Exception
+                // throw;
+                throw new Exception($"{ex.Message}", ex);
             }
         }
 
@@ -71,10 +103,11 @@ namespace Inventorium.Web.Services
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Log Exception
-                throw;
+                // throw;
+                throw new Exception($"{ex.Message}", ex);
             }
         }
     }

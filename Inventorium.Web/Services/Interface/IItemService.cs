@@ -6,5 +6,6 @@ namespace Inventorium.Web.Services.Interface
     {
         Task<IEnumerable<ProductItemDto>> GetItemsAsync();
         Task<ProductItemDto> GetItemByIdAsync(int id);
+        Task<IEnumerable<ProductItemDto>> GetItemsBySearchParamAsync(string query);
     }
 }

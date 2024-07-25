@@ -70,8 +70,8 @@ namespace Inventorium.Web.Services
             catch (Exception ex)
             {
                 // Log Exception
-                throw;
-                // throw new Exception($"{ex.Message}", ex);
+                // throw;
+                throw new Exception($"{ex.Message}", ex);
             }
         }
 
@@ -102,10 +102,11 @@ namespace Inventorium.Web.Services
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Log Exception
-                throw;
+                // throw;
+                throw new Exception($"{ex.Message}", ex);
             }
         }
     }

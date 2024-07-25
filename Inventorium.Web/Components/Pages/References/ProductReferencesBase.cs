@@ -1,4 +1,5 @@
 ﻿using Inventorium.Dtos.Dtos;
+using Inventorium.Web.Components.Pages.Items;
 using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
@@ -29,8 +30,18 @@ namespace Inventorium.Web.Components.Pages.References
 
             try
             {
-                this.BlazorAppBase.SetTitle("References");
-                ProductReferences = await ReferenceService.GetReferencesAsync();
+                
+
+                if (BlazorAppBase.GetURLSearchParam() != null)
+                {
+                    this.BlazorAppBase.SetTitle("References Search");
+                    ProductReferences = await ReferenceService.GetReferencesBySearchParamAsync(BlazorAppBase.GetURLSearchParam());
+                }
+                else
+                {
+                    this.BlazorAppBase.SetTitle("References");
+                    ProductReferences = await ReferenceService.GetReferencesAsync();
+                }
 
             }
             catch (Exception ex)

@@ -53,7 +53,7 @@ namespace Inventorium.API.Controllers
 
         // GET all the searches for items
         [HttpGet("Search/{query}")]
-        public async Task<ActionResult<IEnumerable<ProductCategoryDto>>> GetProductItemsSearchResults(string query)
+        public async Task<ActionResult<IEnumerable<ProductItemDto>>> GetProductItemsSearchResults(string query)
         {
             try
             {
