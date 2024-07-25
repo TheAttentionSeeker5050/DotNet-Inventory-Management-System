@@ -1,5 +1,7 @@
-﻿using Inventorium.Web.Components.Pages.References;
+﻿using Inventorium.Dtos.Dtos;
+using Inventorium.Web.Components.Pages.References;
 using Inventorium.Web.Services;
+using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 
 namespace Inventorium.Web.Components.Pages.Search
@@ -9,6 +11,15 @@ namespace Inventorium.Web.Components.Pages.Search
         // Base app metadata handler (title, etc)
         [Inject]
         public IBlazorAppBase BlazorAppBase { get; set; }
+
+        // Inject page specific blazor objects
+        
+        [Inject]
+        public ISearchService SearchService { get; set; }
+
+        [Parameter]
+        public  IEnumerable<SearchOptionDto> SearchResults { get; set; } = Enumerable.Empty<SearchOptionDto>();
+
 
         // Error message output
         public string ErrorMessage { get; set; }
@@ -24,14 +35,12 @@ namespace Inventorium.Web.Components.Pages.Search
                 // get url search param
                 SearchParam = BlazorAppBase.GetURLSearchParam();
 
+                this.BlazorAppBase.SetTitle("Search");
 
                 if (BlazorAppBase.GetURLSearchParam() != null)
                 {
-                    this.BlazorAppBase.SetTitle("References Search");
-                }
-                else
-                {
-                    this.BlazorAppBase.SetTitle("References");
+                    this.BlazorAppBase.SetTitle("Search");
+                    SearchResults = await SearchService.GetSearchAutoSuggestionsBySearchParamAsync(SearchParam);
                 }
 
             }

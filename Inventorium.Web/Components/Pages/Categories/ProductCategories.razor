@@ -9,25 +9,31 @@
 
 
 <div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col" class="col fs-5 fw-semibold">Id</th>
-                <th scope="col" class="col fs-5 fw-semibold">Category Name</th>
-                <th scope="col" class="col fs-5 fw-semibold">Category Description</th>
+    @if (ProductCategories.Count() > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="col fs-5 fw-semibold">Id</th>
+                    <th scope="col" class="col fs-5 fw-semibold">Category Name</th>
+                    <th scope="col" class="col fs-5 fw-semibold">Category Description</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in ProductCategories)
-            {
-                <tr onclick="window.location='/product-categories/@category.Id'" class="clickable" style="cursor: pointer;">
-                    <td>@category.Id</td>
-                    <td>@category.Name</td>
-                    <td>@(@category.Description.Length > 0 ? @category.Description : "No Description")</td>
-                    
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var category in ProductCategories)
+                {
+                    <tr onclick="window.location='/product-categories/@category.Id'" class="clickable" style="cursor: pointer;">
+                        <td>@category.Id</td>
+                        <td>@category.Name</td>
+                        <td>@(@category.Description.Length > 0 ? @category.Description : "No Description")</td>
+                    
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } else
+    {
+        <p>No Data to Display</p>
+    }
 </div>

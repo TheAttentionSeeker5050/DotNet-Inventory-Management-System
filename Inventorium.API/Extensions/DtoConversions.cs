@@ -147,14 +147,48 @@ namespace Inventorium.API.Extensions
         }
 
         // Dto for displaying a list of search results
-        public static IEnumerable<SearchOptionDto> ConvertToDto(this IEnumerable<ProductCategoryModel> productItems, string value)
+        public static IEnumerable<SearchOptionDto> ConvertToSearchDto(this IEnumerable<ProductCategoryModel> productCategories)
         {
-            return (from productItem in productItems
-                    
+            return (from productCategory in productCategories
+
                     select new SearchOptionDto()
                     {
-                        OptionDisplayCategory = "Categories",
-                        OptionDisplayValue = value,
+                        OptionDisplayCategoryLabel = "Product Categories",
+                        OptionResourceParent = "ProductCategories",
+                        OptionResourceFrontendParent = "product-categories",
+                        OptionDisplayValue = productCategory.Name,
+                        OptionDisplayId = productCategory.Id,
+                    });
+        }
+
+
+        public static IEnumerable<SearchOptionDto> ConvertToSearchDto(this IEnumerable<ProductItemModel> productItems)
+        {
+            return (from productItem in productItems
+
+                    select new SearchOptionDto()
+                    {
+
+                        OptionDisplayCategoryLabel = "Product Items",
+                        OptionResourceParent = "ProductItems",
+                        OptionResourceFrontendParent = "product-items",
+                        OptionDisplayValue = productItem.Name,
+                        OptionDisplayId = productItem.Id,
+                    });
+        }
+
+        public static IEnumerable<SearchOptionDto> ConvertToSearchDto(this IEnumerable<ProductReferenceModel> productReferences)
+        {
+            return (from productReference in productReferences
+
+                    select new SearchOptionDto()
+                    {
+
+                        OptionDisplayCategoryLabel = "Product References",
+                        OptionResourceParent = "ProductReferences",
+                        OptionResourceFrontendParent = "product-references",
+                        OptionDisplayValue = productReference.Name,
+                        OptionDisplayId = productReference.Id,
                     });
         }
 

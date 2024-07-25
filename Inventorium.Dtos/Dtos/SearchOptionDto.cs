@@ -9,9 +9,12 @@ namespace Inventorium.Dtos.Dtos
     public class SearchOptionDto
     {
         // The dto properties
-        public string OptionDisplayCategory { get; set; }
+        public string OptionDisplayCategoryLabel { get; set; }
+        public string OptionResourceParent { get; set; }
+        public string OptionResourceFrontendParent { get; set; }
         public string OptionDisplayValue { get; set; }
-        public string OptionDisplayId { get; set; }
+
+        public int OptionDisplayId { get; set; }
     }
 }
 

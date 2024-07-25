@@ -1,5 +1,7 @@
-﻿@inject IBlazorAppBase _blazorAppBase
+﻿@using Inventorium.Web.Services.Interface
+@inject IBlazorAppBase _blazorAppBase
 @rendermode InteractiveServer
+@inject ISearchService SearchService
 
 <style>
     #search-bar {
@@ -52,9 +54,24 @@
                     <div class="list-group position-absolute top-100" id="datalistOptions" @onclick="ClearInputs">
                         @foreach (var item in SearchByTableOptions)
                         {
-                            <a href="@item.OptionSearchURL" class="list-group-item list-group-item-action list-group-item-light">@item.OptionDisplayValue in @item.OptionDisplayCategory</a>
+                            <a href="@item.OptionSearchURL" class="list-group-item list-group-item-action list-group-item-light"> 
+                                Search @item.OptionDisplayValue in @item.OptionDisplayCategory
+                            </a>
+                        }
+
+                        @if (SearchAutoSuggestions.Count() > 0)
+                        {
+                            <span class="list-group-item list-group-item-action list-group-item-light bg-primary">Top Results</span>
+                        }
+
+                        @foreach (var item in SearchAutoSuggestions)
+                        {
+                            <a href="@($"/{item.OptionResourceFrontendParent}/{item.OptionDisplayId}")" class="list-group-item list-group-item-action list-group-item-light">
+                                @item.OptionDisplayValue in @item.OptionDisplayCategoryLabel
+                            </a>
                         }
                     </div>
+
 
                 </form>
             </ul>
@@ -83,6 +100,11 @@
 
     private List<SearchBarOptionItem> SearchByTableOptions { get; set; } = new List<SearchBarOptionItem>();
 
+    private List<SearchOptionDto> SearchAutoSuggestions { get; set; } = new List<SearchOptionDto>();
+
+
+
+
     private async Task OnInputChange(ChangeEventArgs e)
     {
         SearchInputValue = e.Value?.ToString();
@@ -92,6 +114,7 @@
     private async Task ClearInputs()
     {
         SearchByTableOptions.Clear();
+        SearchAutoSuggestions.Clear();
         SearchInputValue = null;
     }
 
@@ -125,6 +148,10 @@
             SearchByTableOptions.Add(searchCategoryOption);
             SearchByTableOptions.Add(searchReferenceOption);
             SearchByTableOptions.Add(searchItemOption);
+
+            // make an http request to search route
+            SearchAutoSuggestions = await SearchService.GetSearchAutoSuggestionsBySearchParamAsync(SearchInputValue);
+            // ProductReferences = await ReferenceService.GetReferencesBySearchParamAsync(BlazorAppBase.GetURLSearchParam());
         }
     }
 

@@ -16,6 +16,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IReferenceService,ReferenceService>();
 builder.Services.AddScoped<IItemService,ItemService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 builder.Services.AddScoped(sp =>
     new HttpClient
