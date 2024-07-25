@@ -45,8 +45,8 @@
                     <a class="nav-link @(@_blazorAppBase.GetTitle() == "Items" || @_blazorAppBase.GetTitle() == "Items Search" ? "text-warning-emphasis" : "")" href="/product-items">Product Items</a>
                 </li>
 
-                <form method="get" action="" class="d-flex p-1 gap-2" role="search" id="search-bar">
-                    <input class="form-control position-relative text-black" name="seach-value" id="search-bar__input" placeholder="Search" aria-label="Search" @bind="SearchInputValue" @oninput="OnInputChange" >
+                <form method="get" action="/search" class="d-flex p-1 gap-2" role="search" id="search-bar">
+                    <input class="form-control position-relative text-black" name="q" id="search-bar__input" placeholder="Search" aria-label="Search" @bind="SearchInputValue" @oninput="OnInputChange" >
                     <button class="btn btn-light" type="submit">Search</button>
 
                     <div class="list-group position-absolute top-100" id="datalistOptions" @onclick="ClearInputs">

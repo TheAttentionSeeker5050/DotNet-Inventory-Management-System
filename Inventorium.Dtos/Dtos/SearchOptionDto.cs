@@ -11,6 +11,7 @@ namespace Inventorium.Dtos.Dtos
         // The dto properties
         public string OptionDisplayCategory { get; set; }
         public string OptionDisplayValue { get; set; }
+        public string OptionDisplayId { get; set; }
     }
 }
 
