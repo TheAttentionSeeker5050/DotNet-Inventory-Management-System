@@ -15,6 +15,7 @@ namespace Inventorium.Web.Components.Pages
         string GetURLSearchParam();
         void SetIsClickAwayOfSearchRef(bool isClickAwayOfSearchRef);
         bool GetIsClickAwayOfSearchRef();
+        Task RedirectToUrl(string url);
     }
 
     public class BlazorAppBase : IBlazorAppBase
@@ -75,6 +76,17 @@ namespace Inventorium.Web.Components.Pages
         public bool GetIsClickAwayOfSearchRef()
         {
             return IsClickAwayOfSearchRef;
+        }
+
+        public Task RedirectToUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return Task.CompletedTask;
+            }
+            
+            NavigationManager.NavigateTo(url);
+            return Task.CompletedTask;
         }
 
 

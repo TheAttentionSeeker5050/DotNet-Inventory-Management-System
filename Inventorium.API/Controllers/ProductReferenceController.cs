@@ -153,7 +153,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                var productCategoryId = newProductReference.ProductCategory.Id;
+                var productCategoryId = newProductReference.ProductCategoryId;
                 // create product reference
                 var createdProductReference = _productReferenceRepository.CreateProductReference(newProductReference, productCategoryId);
 

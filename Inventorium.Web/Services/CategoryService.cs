@@ -22,10 +22,10 @@ namespace Inventorium.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return Enumerable.Empty<ProductCategoryDto>();
+                        return Enumerable.Empty<ProductCategoryDto>().ToList();
                     }
 
-                    return await response.Content.ReadFromJsonAsync<IEnumerable<ProductCategoryDto>>();
+                    return await response.Content.ReadFromJsonAsync<List<ProductCategoryDto>>();
                 }
 
                 else

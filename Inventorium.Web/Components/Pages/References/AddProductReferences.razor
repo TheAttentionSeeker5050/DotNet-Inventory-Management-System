@@ -1,6 +1,8 @@
 ﻿@page "/product-references/add"
 @inherits AddProductReferencesBase
 @using Inventorium.Web.Components.Layout
+@rendermode InteractiveServer
+
 
 
 
@@ -8,4 +10,59 @@
 
 
 <h1>New Product Reference</h1>
+@if (StatusMessage?.Length > 0)
+{
+    <p class="alert alert-success">@StatusMessage</p>
+}
+
+@if (ErrorMessage?.Length > 0)
+{
+    <p class="alert alert-danger">@ErrorMessage</p>
+}
+
+@* make a form for for creating a new product reference *@
+<EditForm Model=ReferenceFormModel method="post" OnSubmit=Submit class="row g-3" FormName="AddReferenceForm">
+    <DataAnnotationsValidator />
+
+    <div class="col-md-6">
+        <label for="Name" class="form-label">Name</label>
+        <InputText class="form-control" placeholder="insert a product reference name..." aria-label="name" @bind-Value=ReferenceFormModel.Name />
+        <ValidationMessage For="() => ReferenceFormModel.Name" />
+    </div>
+    <div class="col-md-6">
+        <label for="Description" class="form-label">Description</label>
+        <InputText class="form-control" placeholder="insert a product reference description..." aria-label="description" @bind-Value=ReferenceFormModel.Description />
+        <ValidationMessage For="() => ReferenceFormModel.Description" />
+    </div>
+
+    <div class="col-md-6">
+        <label for="Price" class="form-label">Price ($)</label>
+        <InputNumber class="form-control" placeholder="insert a product reference price..." min="0" aria-label="price" @bind-Value=ReferenceFormModel.Price step="0.01" />
+        <ValidationMessage For="() => ReferenceFormModel.Price" />
+    </div>
+
+    <div class="col-md-6">
+        <label for="Discount" class="form-label">Discount (%)</label>
+        <InputNumber class="form-control" placeholder="insert a product reference discount..." min="0" max="100" aria-label="discount" @bind-Value=ReferenceFormModel.Discount step="0.01" />
+        <ValidationMessage For="() => ReferenceFormModel.Discount" />
+    </div>
+
+    <div class="col-md-6">
+        <label for="ProductCategoryId" class="form-label">Category</label>
+        <InputSelect class="form-select" aria-label="product category" @bind-Value=ReferenceFormModel.ProductCategoryId>
+            <option selected>insert a product reference category...</option>
+            
+            @foreach(var category in ProductCategories)
+            {
+                <option value="@category.Id">
+                    @category.Name
+                </option>
+            }
+        </InputSelect>
+        <ValidationMessage For="() => ReferenceFormModel.ProductCategoryId" />
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</EditForm>
 

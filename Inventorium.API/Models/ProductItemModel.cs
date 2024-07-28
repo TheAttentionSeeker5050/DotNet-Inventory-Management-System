@@ -12,6 +12,7 @@ namespace Inventorium.API.Models
 
         [Required]
         [MaxLength(100)]
+        [MinLength(1)]
         public string Name { get; set; } = string.Empty;
 
         // the relations
