@@ -1,4 +1,4 @@
-﻿@page "/product-categories/{categoryId:int}"
+﻿@page "/product-categories/details/{categoryId:int}"
 @inherits ProductCategoryDetailsBase
 
 <PageTitle>@BlazorAppBase.GetTitle()</PageTitle>
@@ -15,8 +15,8 @@
             <p class="card-text">
                 @(@ProductCategory.Description?.Length > 0 ? @ProductCategory.Description : "No Description")
             </p>
-            <a href="#" class="btn btn-primary">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="/product-categories/details/@ProductCategory.Id/edit" class="btn btn-primary">Edit</a>
+            <a href="/product-categories/details/@ProductCategory.Id/delete" class="btn btn-danger">Delete</a>
         </div>
     </div>
     <h2>Product References</h2>
@@ -25,7 +25,7 @@
         <div class="card my-2 w-100" style="max-width: 60rem;">
             <div class="card-body">
                 <h3 class="card-title fs-5">
-                    <a href="/product-references/@reference.Id" class="link-underline link-underline-opacity-0">
+                    <a href="/product-references/details/@reference.Id" class="link-underline link-underline-opacity-0">
                         @reference.Name
                     </a>
                 </h3>

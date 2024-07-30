@@ -1,4 +1,4 @@
-﻿@page "/product-references/{referenceId:int}"
+﻿@page "/product-references/details/{referenceId:int}"
 @inherits ProductReferenceDetailsBase
 
 
@@ -19,12 +19,12 @@
 
             <p class="card-text">
                 Product Category:
-                <a href="/product-categories/@ProductReference.ProductCategoryId">
+                <a href="/product-categories/details/@ProductReference.ProductCategoryId">
                     @(ProductReference.ProductCategoryName?.Length > 0 ? ProductReference.ProductCategoryName : "N/A")
                 </a>
             </p>
-            <a href="#" class="btn btn-primary">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="/product-references/details/@ProductReference.Id/edit" class="btn btn-primary">Edit</a>
+            <a href="/product-references/details/@ProductReference.Id/delete" class="btn btn-danger">Delete</a>
         </div>
     </div>
     <h2>Product Items</h2>
@@ -33,7 +33,7 @@
         <div class="card my-2 w-100" style="max-width: 60rem;">
             <div class="card-body">
                 <h3 class="card-title fs-5">
-                    <a href="/product-items/@item.Id" class="link-underline link-underline-opacity-0">
+                    <a href="/product-items/details/@item.Id" class="link-underline link-underline-opacity-0">
                         @item.Name
                     </a>
                 </h3>

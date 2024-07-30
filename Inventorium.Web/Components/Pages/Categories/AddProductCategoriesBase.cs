@@ -1,23 +1,14 @@
 ﻿using Inventorium.API.Models;
 using Inventorium.Dtos.Dtos;
+using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
-namespace Inventorium.Web.Components.Pages.References
+namespace Inventorium.Web.Components.Pages.Categories
 {
-    public class AddProductReferencesBase : ComponentBase
+    public class AddProductCategoriesBase : ComponentBase
     {
-        // The display params
-        [Parameter]
-        public IEnumerable<ProductCategoryDto> ProductCategories { get; set; } = new List<ProductCategoryDto>();
-
-        // Reference service handler
-        [Inject]
-        public IReferenceService ReferenceService { get; set; }
-
         // Category service handler
         [Inject]
         public ICategoryService CategoryService { get; set; }
@@ -32,10 +23,8 @@ namespace Inventorium.Web.Components.Pages.References
 
         // the form params
         [SupplyParameterFromForm]
-        protected ProductReferenceModel? ReferenceFormModel { get; set; }
+        protected ProductCategoryModel? ReferenceFormModel { get; set; }
         protected EditContext? FormEditContext;
-
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -45,9 +34,7 @@ namespace Inventorium.Web.Components.Pages.References
             {
                 ReferenceFormModel ??= new();
                 FormEditContext = new(ReferenceFormModel);
-                this.BlazorAppBase.SetTitle("Add Product Reference");
-                ProductCategories = await CategoryService.GetCategoriesAsync();
-
+                this.BlazorAppBase.SetTitle("Add Product Category");
                 
             }
             catch (Exception ex)
@@ -55,13 +42,14 @@ namespace Inventorium.Web.Components.Pages.References
                 ErrorMessage = ex.Message;
             }
         }
+
         public async Task Submit()
         {
             try
             {
 
                 // Add product reference with our reference service method
-                var response = await ReferenceService.CreateProductReference(ReferenceFormModel);
+                /*var response = await CategoryService.CreateProductReference(ReferenceFormModel);
                 if (response.Name != null && response.Name.Length > 0)
                 {
                     StatusMessage = "Model created successfully!";
@@ -69,9 +57,11 @@ namespace Inventorium.Web.Components.Pages.References
                 else
                 {
                     StatusMessage = "Error creating model.";
-                }
+                }*/
 
-                ErrorMessage = "";
+                StatusMessage = "Model created successfully!";
+
+                /*ErrorMessage = "";*/
 
 
                 StateHasChanged();
@@ -88,7 +78,5 @@ namespace Inventorium.Web.Components.Pages.References
             }
 
         }
-
-        
     }
 }

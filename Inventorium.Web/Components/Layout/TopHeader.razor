@@ -66,7 +66,7 @@
 
                         @foreach (var item in SearchAutoSuggestions)
                         {
-                            <a href="@($"/{item.OptionResourceFrontendParent}/{item.OptionDisplayId}")" class="list-group-item list-group-item-action list-group-item-light">
+                            <a href="@($"/{item.OptionResourceFrontendParent}/details/{item.OptionDisplayId}")" class="list-group-item list-group-item-action list-group-item-light">
                                 @item.OptionDisplayValue in @item.OptionDisplayCategoryLabel
                             </a>
                         }

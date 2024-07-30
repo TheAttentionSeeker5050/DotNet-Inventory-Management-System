@@ -1,4 +1,4 @@
-﻿@page "/product-items/{itemId:int}"
+﻿@page "/product-items/details/{itemId:int}"
 @inherits ProductItemDetailsBase
 
 
@@ -15,7 +15,7 @@
             <h2 class="card-title fs-5">@ProductItem.Name</h2>
             <p class="card-text">
                 Product Reference:
-                <a href="/product-references/@ProductItem.ProductReferenceId">
+                <a href="/product-references/details/@ProductItem.ProductReferenceId">
                      @(ProductItem.ProductReferenceName?.Length > 0 ? ProductItem.ProductReferenceName : "N/A")
                 </a>
             </p>
@@ -56,8 +56,8 @@
                 </li>
             </ul>
 
-            <a href="#" class="btn btn-primary">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="/product-items/details/@ProductItem.Id/edit" class="btn btn-primary">Edit</a>
+            <a href="/product-items/details/@ProductItem.Id/delete" class="btn btn-danger">Delete</a>
         </div>
     </div>
 }

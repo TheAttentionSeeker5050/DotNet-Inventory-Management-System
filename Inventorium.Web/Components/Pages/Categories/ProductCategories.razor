@@ -6,6 +6,9 @@
 <PageTitle>@BlazorAppBase.GetTitle()</PageTitle>
 
 <h1>Product Categories</h1>
+<div class="d-flex flex-row-reverse">
+    <a class="bi bi-plus-circle btn btn-primary fs-5" href="/product-categories/add"></a>
+</div>
 
 
 <div class="table-responsive">
@@ -23,7 +26,7 @@
             <tbody>
                 @foreach (var category in ProductCategories)
                 {
-                    <tr onclick="window.location='/product-categories/@category.Id'" class="clickable" style="cursor: pointer;">
+                    <tr onclick="window.location='/product-categories/details/@category.Id'" class="clickable" style="cursor: pointer;">
                         <td>@category.Id</td>
                         <td>@category.Name</td>
                         <td>@(@category.Description.Length > 0 ? @category.Description : "No Description")</td>

@@ -28,7 +28,7 @@
             <tbody>
                 @foreach (var reference in ProductReferences)
                 {
-                    <tr onclick="window.location='/product-references/@reference.Id'" class="clickable" style="cursor: pointer; hover: {background-color: red !important}">
+                    <tr onclick="window.location='/product-references/details/@reference.Id'" class="clickable" style="cursor: pointer; hover: {background-color: red !important}">
                         <td>@reference.Id</td>
                             <td>@reference.Name</td>
                             <td>@(reference.Description.Length > 0 ? reference.Description : "No Description")</td>
