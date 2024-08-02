@@ -49,7 +49,7 @@ namespace Inventorium.Web.Components.Pages.Categories
             {
 
                 // Add product reference with our reference service method
-                /*var response = await CategoryService.CreateProductReference(ReferenceFormModel);
+                var response = await CategoryService.CreateProductCategory(ReferenceFormModel);
                 if (response.Name != null && response.Name.Length > 0)
                 {
                     StatusMessage = "Model created successfully!";
@@ -57,7 +57,7 @@ namespace Inventorium.Web.Components.Pages.Categories
                 else
                 {
                     StatusMessage = "Error creating model.";
-                }*/
+                }
 
                 StatusMessage = "Model created successfully!";
 
@@ -67,13 +67,13 @@ namespace Inventorium.Web.Components.Pages.Categories
                 StateHasChanged();
                 // Delay 5 seconds and then redirect
                 await Task.Delay(5000).ConfigureAwait(false);
-                await BlazorAppBase.RedirectToUrl("/product-references");
+                await BlazorAppBase.RedirectToUrl("/product-categories");
 
             }
             catch (Exception ex)
             {
                 StatusMessage = "";
-                ErrorMessage = "Something went wrong while creating a new product reference";
+                ErrorMessage = "Something went wrong while creating a new product category";
                 StateHasChanged();
             }
 
