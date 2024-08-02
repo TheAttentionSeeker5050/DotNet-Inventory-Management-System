@@ -1,3 +1,55 @@
 ﻿@page "/product-items/add"
+@inherits AddProductItemsBase
+@using Inventorium.Web.Components.Layout
+@rendermode InteractiveServer
+
 
 <h3>Add Product Item</h3>
+
+
+@if (StatusMessage?.Length > 0)
+{
+    <p class="alert alert-success">@StatusMessage</p>
+}
+
+@if (ErrorMessage?.Length > 0)
+{
+    <p class="alert alert-danger">@ErrorMessage</p>
+}
+
+
+@* make a form for for creating a new product reference *@
+<EditForm Model=ReferenceFormModel method="post" OnSubmit=Submit class="row g-3" FormName="AddCategoryForm">
+    <DataAnnotationsValidator />
+
+    <div class="col-md-6">
+        <label for="Name" class="form-label">Name</label>
+        <InputText class="form-control" placeholder="insert a product reference name..." aria-label="name" @bind-Value=ReferenceFormModel.Name />
+        <ValidationMessage For="() => ReferenceFormModel.Name" />
+    </div>
+    
+    <div class="col-md-6">
+        <label for="ProductReferenceId" class="form-label">Category</label>
+        <InputSelect class="form-select" aria-label="product category" @bind-Value=ReferenceFormModel.ProductReferenceId>
+            <option selected>insert a product reference category...</option>
+
+            @foreach (var reference in ProductReferences)
+            {
+                <option value="@reference.Id">
+                    @reference.Name
+                </option>
+            }
+        </InputSelect>
+        <ValidationMessage For="() => ReferenceFormModel.ProductReferenceId" />
+    </div>
+
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</EditForm>
+
+
+
+
+
