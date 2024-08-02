@@ -1,4 +1,5 @@
-﻿using Inventorium.Dtos.Dtos;
+﻿using Inventorium.API.Models;
+using Inventorium.Dtos.Dtos;
 using Inventorium.Web.Services.Interface;
 
 namespace Inventorium.Web.Services
@@ -106,6 +107,38 @@ namespace Inventorium.Web.Services
             {
                 // Log Exception
                 // throw;
+                throw new Exception($"{ex.Message}", ex);
+            }
+        }
+
+        public async Task<ProductCategoryDto> CreateProductCategory(ProductCategoryModel productCategoryModel)
+        {
+            try
+            {
+
+                // Make the request and save the response into a variable
+                var response = await httpClient.PostAsJsonAsync("api/ProductCategory", productCategoryModel);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                // Check if response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    // if no content is returned, or empty response, return default content
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return default(ProductCategoryDto);
+                    }
+
+                    // if content, make conversion and return appropriate resppnse
+                    return await response.Content.ReadFromJsonAsync<ProductCategoryDto>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
+            }
+            catch (Exception ex)
+            {
                 throw new Exception($"{ex.Message}", ex);
             }
         }
