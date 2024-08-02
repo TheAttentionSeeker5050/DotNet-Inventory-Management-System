@@ -1,37 +1,4 @@
 ﻿@page "/product-categories/add"
 @inherits AddProductCategoriesBase
-@rendermode InteractiveServer
 
 <h3>Add Product Categories</h3>
-@if (StatusMessage?.Length > 0)
-{
-    <p class="alert alert-success">@StatusMessage</p>
-}
-
-@if (ErrorMessage?.Length > 0)
-{
-    <p class="alert alert-danger">@ErrorMessage</p>
-}
-
-
-
-@* make a form for for creating a new product reference *@
-<EditForm Model=ReferenceFormModel method="post" OnSubmit=Submit class="row g-3" FormName="AddCategoryForm">
-    <DataAnnotationsValidator />
-
-    <div class="col-md-6">
-        <label for="Name" class="form-label">Name</label>
-        <InputText class="form-control" placeholder="insert a product reference name..." aria-label="name" @bind-Value=ReferenceFormModel.Name />
-        <ValidationMessage For="() => ReferenceFormModel.Name" />
-    </div>
-    <div class="col-md-6">
-        <label for="Description" class="form-label">Description</label>
-        <InputText class="form-control" placeholder="insert a product reference description..." aria-label="description" @bind-Value=ReferenceFormModel.Description />
-        <ValidationMessage For="() => ReferenceFormModel.Description" />
-    </div>
-
-
-    <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</EditForm>

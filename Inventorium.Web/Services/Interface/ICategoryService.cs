@@ -1,6 +1,4 @@
-﻿using Inventorium.API.Models;
-using Inventorium.Dtos.Dtos;
-using System.Net.Http;
+﻿using Inventorium.Dtos.Dtos;
 
 namespace Inventorium.Web.Services.Interface
 {
@@ -9,7 +7,5 @@ namespace Inventorium.Web.Services.Interface
         Task<IEnumerable<ProductCategoryDto>> GetCategoriesAsync();
         Task<ProductCategoryDto> GetCategoryByIdAsync(int id);
         Task<IEnumerable<ProductCategoryDto>> GetCategoriesBySearchParamAsync(string query);
-
-        Task<ProductCategoryDto> CreateProductCategory(ProductCategoryModel productCategoryModel);
     }
 }
