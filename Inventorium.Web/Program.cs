@@ -20,7 +20,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped(sp =>
     new HttpClient
     {
-        BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7188/api")
+        BaseAddress = new Uri("http://localhost:5000/api")
     });
 
 // App base handler for app wide metadata
