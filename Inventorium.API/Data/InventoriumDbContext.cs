@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Inventorium.API.Models;
+using Inventorium.Models;
 
 
 

@@ -1,13 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  
+  <PropertyGroup>
+    <WasmEnableWebcil>false</WasmEnableWebcil>
+    <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\Inventorium.API\Inventorium.API.csproj" />
+    <ProjectReference Include="..\Inventorium.Models\Inventorium.Models.csproj"></ProjectReference>
     <ProjectReference Include="..\Inventorium.Dtos\Inventorium.Dtos.csproj"></ProjectReference>
   </ItemGroup>
 

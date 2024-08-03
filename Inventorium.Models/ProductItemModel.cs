@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Inventorium.API.Models
+namespace Inventorium.Models
 {
     public class ProductItemModel
     {

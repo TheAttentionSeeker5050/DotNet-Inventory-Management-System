@@ -1,4 +1,4 @@
-﻿namespace Inventorium.Dtos.Dtos
+﻿namespace Inventorium.Dtos
 {
     public class ProductCategoryDto
     {

@@ -1,10 +1,10 @@
-﻿using Inventorium.API.Models;
-using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Models;
 using Inventorium.Web.Components.Pages.References;
 using Inventorium.Web.Components;
 using Inventorium.Web.Services.Interface;
 using System.Text.Json;
 using System.Text;
+using Inventorium.Dtos;
 
 namespace Inventorium.Web.Services
 {

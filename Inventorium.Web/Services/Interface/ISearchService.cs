@@ -1,4 +1,4 @@
-﻿using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Dtos;
 
 namespace Inventorium.Web.Services.Interface
 {

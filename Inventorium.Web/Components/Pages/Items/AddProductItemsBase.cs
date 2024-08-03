@@ -1,5 +1,5 @@
-﻿using Inventorium.API.Models;
-using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Models;
+using Inventorium.Dtos;
 using Inventorium.Web.Components.Pages.Categories;
 using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;

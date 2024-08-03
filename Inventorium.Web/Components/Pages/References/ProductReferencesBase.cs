@@ -1,4 +1,4 @@
-﻿using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Dtos;
 using Inventorium.Web.Components.Pages.Items;
 using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;

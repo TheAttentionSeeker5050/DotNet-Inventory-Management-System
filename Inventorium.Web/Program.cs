@@ -2,7 +2,6 @@ using Inventorium.Web.Components;
 using Inventorium.Web.Components.Pages;
 using Inventorium.Web.Services;
 using Inventorium.Web.Services.Interface;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

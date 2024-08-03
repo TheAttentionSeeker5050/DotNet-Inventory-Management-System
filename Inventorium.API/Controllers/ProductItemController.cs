@@ -1,8 +1,7 @@
 ﻿using Inventorium.API.Extensions;
-using Inventorium.API.Models;
-using Inventorium.API.Repositories;
 using Inventorium.API.Repositories.Contracts;
-using Inventorium.Dtos.Dtos;
+using Inventorium.Dtos;
+using Inventorium.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventorium.API.Controllers

@@ -1,5 +1,5 @@
 ﻿using Inventorium.API.Data;
-using Inventorium.API.Models;
+using Inventorium.Models;
 using Inventorium.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

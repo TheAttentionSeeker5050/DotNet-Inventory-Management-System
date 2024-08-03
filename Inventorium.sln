@@ -4,14 +4,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventorium.Dtos", "Inventorium.Dtos\Inventorium.Dtos.csproj", "{FE51C3DD-C403-4AE5-A3D4-658178509710}"
-	ProjectSection(ProjectDependencies) = postProject
-		{587E1E0B-28B2-45D1-A33E-26A4821D2E63} = {587E1E0B-28B2-45D1-A33E-26A4821D2E63}
-		{811CEB19-4AA0-4CC9-A87C-70B980500AEC} = {811CEB19-4AA0-4CC9-A87C-70B980500AEC}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventorium.API", "Inventorium.API\Inventorium.API.csproj", "{587E1E0B-28B2-45D1-A33E-26A4821D2E63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE51C3DD-C403-4AE5-A3D4-658178509710} = {FE51C3DD-C403-4AE5-A3D4-658178509710}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventorium.Web", "Inventorium.Web\Inventorium.Web.csproj", "{811CEB19-4AA0-4CC9-A87C-70B980500AEC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE51C3DD-C403-4AE5-A3D4-658178509710} = {FE51C3DD-C403-4AE5-A3D4-658178509710}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventorium.Models", "Inventorium.Models\Inventorium.Models.csproj", "{543446FB-C950-4AC8-B4EA-33F0D4FE190D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{811CEB19-4AA0-4CC9-A87C-70B980500AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{811CEB19-4AA0-4CC9-A87C-70B980500AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{811CEB19-4AA0-4CC9-A87C-70B980500AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543446FB-C950-4AC8-B4EA-33F0D4FE190D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543446FB-C950-4AC8-B4EA-33F0D4FE190D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543446FB-C950-4AC8-B4EA-33F0D4FE190D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543446FB-C950-4AC8-B4EA-33F0D4FE190D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

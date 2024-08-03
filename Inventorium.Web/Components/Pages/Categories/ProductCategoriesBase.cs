@@ -1,4 +1,4 @@
-﻿using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Dtos;
 using Inventorium.Web.Services.Interface;
 using Microsoft.AspNetCore.Components;
 

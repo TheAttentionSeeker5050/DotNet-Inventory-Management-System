@@ -1,4 +1,4 @@
-﻿using Inventorium.API.Models;
+﻿using Inventorium.Models;
 
 namespace Inventorium.API.Data
 {

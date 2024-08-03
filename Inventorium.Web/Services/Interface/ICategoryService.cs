@@ -1,5 +1,5 @@
-﻿using Inventorium.API.Models;
-using Inventorium.Dtos.Dtos;
+﻿using Inventorium.Models;
+using Inventorium.Dtos;
 using System.Net.Http;
 
 namespace Inventorium.Web.Services.Interface

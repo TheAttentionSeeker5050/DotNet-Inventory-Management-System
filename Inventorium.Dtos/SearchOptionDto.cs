@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inventorium.Dtos.Dtos
+namespace Inventorium.Dtos
 {
     public class SearchOptionDto
     {

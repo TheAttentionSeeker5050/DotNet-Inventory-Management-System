@@ -1,12 +1,7 @@
 ﻿using Inventorium.API.Extensions;
-using Inventorium.API.Models;
-using Inventorium.API.Repositories;
 using Inventorium.API.Repositories.Contracts;
-using Inventorium.Dtos.Dtos;
+using Inventorium.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Inventorium.API.Controllers
 {
