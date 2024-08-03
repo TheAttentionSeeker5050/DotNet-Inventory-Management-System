@@ -121,7 +121,7 @@ namespace Inventorium.API.Controllers
         {
             try
             {
-                var productReferenceId = newProductItem.ProductReference.Id;
+                var productReferenceId = newProductItem.ProductReferenceId;
                 // create product item
                 var createdProductItem = _productItemRepository.CreateProductItem(newProductItem, productReferenceId);
 
