@@ -20,7 +20,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped(sp =>
     new HttpClient
     {
-        BaseAddress = new Uri("http://localhost:5000/api")
+        BaseAddress = new Uri("https://dotnet-inventorium-api.nicolas-castellano.com")
     });
 
 // App base handler for app wide metadata
