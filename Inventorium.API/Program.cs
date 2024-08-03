@@ -34,15 +34,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
+
 
 app.UseHttpsRedirection();
 
-app.UseRouting();
 
 app.UseAuthorization();
 
