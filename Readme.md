@@ -1,6 +1,6 @@
 # Inventory Management System with ASP.NET
 
-The purpose of this project is demostrating the proficiency in developing project using ASP.NET Core Web API's, Blazor Server Apps, Entity Framework and Azure Cloud deployment and maintenance. It consist of an inventory management system where the user (company staff) will be able to add, delete, modify and check status of company inventory. This project will continue growing and integrating even more features
+The purpose of this project is demostrating the proficiency in developing project using ASP.NET Core Web API's, Blazor Web Assembly Apps, Entity Framework and Azure Cloud deployment and maintenance. It consist of an inventory management system where the user (company staff) will be able to add, delete, modify and check status of company inventory. This project will continue growing and integrating even more features
 
 ## Technologies
 - .Net API Controller apps
@@ -11,11 +11,17 @@ The purpose of this project is demostrating the proficiency in developing projec
 - Some pipeline (TBD)
 - Testing Libraries, and Cypress client testing
 
-# Data configuration
+## Data configuration
 Created 3 basic models:
 - Product References: It references products with the same caracteristics, they belong to a category, and have different units
 - Product categories: A group of different products that share simmilar caracteristics
 - Product items: An individual instance of product reference. It represent an unit of product in stock. Other properties can involve location, and that can even be other table itself.
+
+## Solution Components
+- Inventorium.API: The backend server
+- Inventorium.Web: The frontend, developed in Blazor Wasm
+- Inventorium.Dtos: Data transfer object. Based on the data model instances above, the Dtos are an object that carries data between processes. The motivation for its use is that communication between processes is usually done resorting to remote interfaces (e.g., web services), where each call is an expensive operation.
+- Inventorium.Models: We have the models into a separate class library, that is in case we need the data in the frontend exactly as it is in the model.
 
 
 # Changelog
